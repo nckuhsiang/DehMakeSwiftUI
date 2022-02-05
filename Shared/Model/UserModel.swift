@@ -34,38 +34,24 @@ class SettingStore:ObservableObject {
             UserDefaults.standard.set(coi, forKey: "coi")
         }
     }
-//    @Published var nickname:String = UserDefaults.standard.string(forKey: "nickname") ?? "" {
-//        didSet {
-//            UserDefaults.standard.set(nickname, forKey: "nickname")
-//        }
-//    }
-//    @Published var email:String = UserDefaults.standard.string(forKey: "email") ?? "" {
-//        didSet {
-//            UserDefaults.standard.set(email, forKey: "email")
-//        }
-//    }
-//    @Published var birthday:String = UserDefaults.standard.string(forKey: "birthday") ?? "" {
-//        didSet {
-//            UserDefaults.standard.set(birthday, forKey: "birthday")
-//        }
-//    }
-//    @Published var role:String = UserDefaults.standard.string(forKey: "role") ?? "" {
-//        didSet {
-//            UserDefaults.standard.set(role, forKey: "role")
-//        }
-//    }
+    @Published var role:String = UserDefaults.standard.string(forKey: "role") ?? "" {
+        didSet {
+            UserDefaults.standard.set(role, forKey: "role")
+        }
+    }
     
 }
 class loginModel: Decodable {
-    let account:String
-    let password:String
-    let name:String
-    let id:Int
-    let nickname:String
-    let email:String
-    let role:String
-    let birthday:String
-    init(account:String,password:String,name:String,id:Int,nickname:String,email:String,birthday:String,role:String) {
+    let account:String!
+    let password:String!
+    let name:String!
+    let id:Int!
+    let nickname:String!
+    let email:String!
+    let role:String!
+    let birthday:String!
+    let message:String!
+    init(account:String,password:String,name:String,id:Int,nickname:String,email:String,birthday:String,role:String,message:String) {
         self.account = account
         self.password = password
         self.name = name
@@ -74,6 +60,7 @@ class loginModel: Decodable {
         self.email = email
         self.birthday = birthday
         self.role = role
+        self.message = message
     }
     enum CodingKeys:String, CodingKey {
         case account
@@ -84,5 +71,6 @@ class loginModel: Decodable {
         case email
         case role
         case birthday
+        case message
     }
 }

@@ -10,14 +10,14 @@ import SwiftUI
 struct COIView: View {
     var body: some View {
         List {
-            Text("choose COI")
+            Text("choose COI".localized)
             COIItem(coi: "deh", title: "DEH 文史脈流")
             COIItem(coi: "sdc", title: "SDC 校本課程")
             COIItem(coi: "extn", title: "EXTN 踏溯台南")
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
-                Text("COI List")
+                Text("COI List".localized)
                     .font(.title2)
                     .foregroundColor(.white)
             }

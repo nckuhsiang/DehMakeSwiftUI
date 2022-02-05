@@ -1,0 +1,20 @@
+/* 
+  Localizable.strings
+  DehMakeSwiftUI
+
+  Created by 陳家庠 on 2022/2/5.
+  
+*/
+"OK" = "好";
+//Account
+"more..." = "更多...";
+"account" = "帳號";
+"password" = "密碼";
+"login" = "登入";
+"register" = "註冊";
+"Account Info" = "帳號資訊";
+"change COI" = "更換組織";
+"login fail" = "登入失敗";
+"login success" = "登入成功";
+"choose COI" = "請選擇組織";
+"COI List" = "組織列表";

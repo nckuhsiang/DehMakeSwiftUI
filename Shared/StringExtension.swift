@@ -24,5 +24,8 @@ extension String {
           }.joined()
         return result
     }
+    var localized: String {
+        return NSLocalizedString(self, comment: "")
+    }
 
 }

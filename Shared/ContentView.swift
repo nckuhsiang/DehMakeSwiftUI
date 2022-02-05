@@ -15,10 +15,13 @@ struct ContentView: View {
         UINavigationBar.appearance().scrollEdgeAppearance = barAppearance
         UITableView.appearance().backgroundColor = .white
     }
+    @EnvironmentObject var setting:SettingStore
     @State private var selection:Int? = nil
     @State private var picturePOI:Bool = false
     @State private var audioPOI:Bool = false
     @State private var videoPOI:Bool = false
+    @State private var alertState:Bool = false
+    @State private var nextView:Bool = false
 //    let pois = [POI(name: "成功大學", belong: "屬於自己", type: "picture"),
 //                POI(name: "資訊工程新館", belong: "屬於自己", type: "video"),
 //                POI(name: "安平古堡", belong: "屬於自己", type: "audio"),
@@ -63,15 +66,45 @@ struct ContentView: View {
                         .foregroundColor(.white)
                 }
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    NavigationLink(destination: AccountView()){
+                    NavigationLink(destination: AccountView(),isActive: $nextView){
                         Image(systemName: "person.crop.circle")
                             .foregroundColor(.white)
+                            .onTapGesture {
+                                if setting.id != -1 {
+                                    alertState = true
+                                }
+                                else {
+                                    nextView = true
+                                }
+                            }
+                            .alert("Would you want to logout?", isPresented: $alertState) {
+                                Button {
+                                    logout()
+                                    nextView = true
+                                } label: {
+                                    Text("Yes")
+                                }
+                                Button {
+                                    alertState = false
+                                } label: {
+                                    Text("No")
+                                }
+                            }
                     }
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
         }
         
+    }
+}
+extension ContentView {
+    func logout() {
+        setting.account = ""
+        setting.password = ""
+        setting.id = -1
+        setting.name = ""
+        setting.role = ""
     }
 }
 struct POIItem:View {
@@ -81,16 +114,7 @@ struct POIItem:View {
     var decription:String
     var body: some View {
         NavigationLink(destination: POIView(type: type), label: {
-            HStack(spacing: 20){
-                Image(picture)
-                VStack(alignment: .leading, spacing: 5){
-                    Text(title)
-                        .font(.title2)
-                    Text(decription)
-                        .font(.body)
-                }
-                .foregroundColor(.black)
-            }
+           listItem(picture: picture, title: title, decription: decription)
         })
     }
 }
