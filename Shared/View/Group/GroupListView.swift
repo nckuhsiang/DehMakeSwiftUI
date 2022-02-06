@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import Alamofire
+
 struct GroupListView: View {
     @EnvironmentObject var setting:SettingStore
     @State private var cancellable: AnyCancellable?
@@ -16,23 +17,40 @@ struct GroupListView: View {
         VStack(spacing: 0){
             List {
                 ForEach(self.groups) { group in
-                    NavigationLink(destination: GroupDetailView()) {
+                    NavigationLink(destination: GroupDetailView(group: group)) {
                         listItem(picture: group.leaderId == setting.id ? "leaderrr":"leaderlisticon", title: group.name, decription:  group.leaderId == setting.id ? "leader":"member")
                     }
                 }
             }
-            .listStyle(GroupedListStyle())
-            NavigationLink(destination: GroupDetailView()){
+            .listStyle(.plain)
+            NavigationLink(destination: GroupInfoView(group: Group(id: -1, name: "", leaderId: -1, info: ""), buttonText:"Create")){
                 Text("Create Group")
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(.black)
-                    .font(.system(size: 40))
+                    .frame(maxWidth: .infinity,maxHeight: 20)
+                    .foregroundColor(.white)
+                    .font(.system(size: 30))
             }
             .padding(.top)
             .background(.orange)
-            
         }
-        
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                Text("Group List".localized)
+                    .font(.title2)
+                    .foregroundColor(.white)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                HStack {
+                    NavigationLink(destination: GroupMessageView()) {
+                        Image(systemName: "message.circle.fill")
+                    }
+                    NavigationLink(destination: GroupSearchView()) {
+                        Image(systemName: "magnifyingglass.circle.fill")
+                    }
+                }
+                .foregroundColor(.white)
+                
+            }
+        }
         .onAppear {
             getGroupList()
         }
@@ -41,11 +59,6 @@ struct GroupListView: View {
 }
 extension GroupListView {
     func getGroupList(){
-        let languageList = ["zh": "中文",
-                            "jp": "日文",
-                            "en": "英文",
-        ]
-        let language = languageList[Locale.current.languageCode ?? ""] ?? "英文"
         let url = GroupGetUserGroupListUrl
         let parameters = [
             "user_id": "\(setting.id)",

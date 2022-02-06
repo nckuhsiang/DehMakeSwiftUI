@@ -5,11 +5,10 @@ class GroupLists:Decodable{
 }
 //Hashable
 class Group:Identifiable,Decodable {
-    
     var id:Int
     var name:String
-    var leaderId:Int?
-    var info:String?
+    var leaderId:Int
+    var info:String
     
     enum CodingKeys: String, CodingKey{
         case id
@@ -23,4 +22,38 @@ class Group:Identifiable,Decodable {
         self.leaderId = leaderId
         self.info = info
     }
+}
+class GroupMemberList:Decodable {
+    let result:[GroupMember]
+    class GroupMember:Decodable,Identifiable {
+        var name:String
+        var role:String
+        enum CodingKeys:String, CodingKey {
+            case name = "member_name"
+            case role = "member_role"
+        }
+        init(name:String, role:String) {
+            self.name = name
+            self.role = role
+        }
+    }
+}
+class PublicGroupList:Decodable{
+    let result:[PublicGroup]
+    class PublicGroup:Decodable,Identifiable {
+        var name:String
+        init(name:String) {
+            self.name = name
+        }
+        
+        enum CodingKeys:String, CodingKey {
+            case name = "group_name"
+        }
+    }
+}
+
+
+
+class Message:Decodable {
+    var message:String
 }

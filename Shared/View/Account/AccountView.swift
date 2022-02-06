@@ -33,15 +33,11 @@ struct AccountView: View {
             .padding(.bottom,50)
             VStack {
                 TextField("account".localized, text: $account)
+                    .textFieldStyle(.roundedBorder)
                     .frame(width: 300, height: 35)
-                    .cornerRadius(5)
-                    .border(.gray,width: 0.5)
-                
-                
                 SecureField("password".localized,text: $password)
+                    .textFieldStyle(.roundedBorder)
                     .frame(width: 300, height: 35)
-                    .cornerRadius(5)
-                    .border(.gray,width: 0.5)
                 
             }
             .padding(.bottom,20)

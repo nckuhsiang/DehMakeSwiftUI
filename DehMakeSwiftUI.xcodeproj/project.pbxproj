@@ -10,10 +10,12 @@
 		E105ECB727AE58BC0070D084 /* listItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105ECB627AE58BC0070D084 /* listItem.swift */; };
 		E105ECB927AE5AF50070D084 /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105ECB827AE5AF50070D084 /* GroupModel.swift */; };
 		E105ECBE27AE63620070D084 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E105ECC027AE63620070D084 /* Localizable.strings */; };
+		E105ECC327AECA290070D084 /* GroupInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105ECC227AECA290070D084 /* GroupInfoView.swift */; };
+		E105ECC527AECAC60070D084 /* GroupMemberListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105ECC427AECAC60070D084 /* GroupMemberListView.swift */; };
 		E159802727A6D1D9004D1C69 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159802627A6D1D8004D1C69 /* GroupListView.swift */; };
 		E159802A27A6D265004D1C69 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159802927A6D265004D1C69 /* UserModel.swift */; };
 		E159802D27A6D290004D1C69 /* POIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159802C27A6D290004D1C69 /* POIModel.swift */; };
-		E159802F27A6D2B8004D1C69 /* SearchGroupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159802E27A6D2B8004D1C69 /* SearchGroupView.swift */; };
+		E159802F27A6D2B8004D1C69 /* GroupSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159802E27A6D2B8004D1C69 /* GroupSearchView.swift */; };
 		E159803127A6D2D2004D1C69 /* GroupMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159803027A6D2D2004D1C69 /* GroupMessageView.swift */; };
 		E159803327A6D2E4004D1C69 /* GroupDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159803227A6D2E4004D1C69 /* GroupDetailView.swift */; };
 		E159803527A6D2FD004D1C69 /* COIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159803427A6D2FD004D1C69 /* COIView.swift */; };
@@ -35,10 +37,12 @@
 		E105ECB827AE5AF50070D084 /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
 		E105ECBF27AE63620070D084 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		E105ECC127AE63650070D084 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		E105ECC227AECA290070D084 /* GroupInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoView.swift; sourceTree = "<group>"; };
+		E105ECC427AECAC60070D084 /* GroupMemberListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberListView.swift; sourceTree = "<group>"; };
 		E159802627A6D1D8004D1C69 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
 		E159802927A6D265004D1C69 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E159802C27A6D290004D1C69 /* POIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIModel.swift; sourceTree = "<group>"; };
-		E159802E27A6D2B8004D1C69 /* SearchGroupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroupView.swift; sourceTree = "<group>"; };
+		E159802E27A6D2B8004D1C69 /* GroupSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupSearchView.swift; sourceTree = "<group>"; };
 		E159803027A6D2D2004D1C69 /* GroupMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMessageView.swift; sourceTree = "<group>"; };
 		E159803227A6D2E4004D1C69 /* GroupDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupDetailView.swift; sourceTree = "<group>"; };
 		E159803427A6D2FD004D1C69 /* COIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = COIView.swift; sourceTree = "<group>"; };
@@ -74,13 +78,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E13745FC27B02CA600C64E0C /* Widget */ = {
+			isa = PBXGroup;
+			children = (
+				E105ECB627AE58BC0070D084 /* listItem.swift */,
+			);
+			path = Widget;
+			sourceTree = "<group>";
+		};
+		E13745FE27B02D4900C64E0C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E159804B27A6F063004D1C69 /* StringExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		E159802827A6D22C004D1C69 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				E159802927A6D265004D1C69 /* UserModel.swift */,
-				E159802C27A6D290004D1C69 /* POIModel.swift */,
-				E105ECB627AE58BC0070D084 /* listItem.swift */,
 				E105ECB827AE5AF50070D084 /* GroupModel.swift */,
+				E159802C27A6D290004D1C69 /* POIModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -106,12 +125,13 @@
 		E1940AE127A6CEFD000FB2AE /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				E13745FE27B02D4900C64E0C /* Extension */,
+				E13745FC27B02CA600C64E0C /* Widget */,
 				E159802827A6D22C004D1C69 /* Model */,
 				E1940B0027A6CF26000FB2AE /* View */,
 				E1940AE227A6CEFD000FB2AE /* DehMakeSwiftUIApp.swift */,
 				E1940AE327A6CEFD000FB2AE /* ContentView.swift */,
 				E1940AE427A6CEFE000FB2AE /* Assets.xcassets */,
-				E159804B27A6F063004D1C69 /* StringExtension.swift */,
 				E159804E27A6F094004D1C69 /* URLList.swift */,
 				E105ECC027AE63620070D084 /* Localizable.strings */,
 			);
@@ -158,9 +178,11 @@
 			isa = PBXGroup;
 			children = (
 				E159802627A6D1D8004D1C69 /* GroupListView.swift */,
-				E159802E27A6D2B8004D1C69 /* SearchGroupView.swift */,
+				E159802E27A6D2B8004D1C69 /* GroupSearchView.swift */,
 				E159803027A6D2D2004D1C69 /* GroupMessageView.swift */,
 				E159803227A6D2E4004D1C69 /* GroupDetailView.swift */,
+				E105ECC227AECA290070D084 /* GroupInfoView.swift */,
+				E105ECC427AECAC60070D084 /* GroupMemberListView.swift */,
 			);
 			path = Group;
 			sourceTree = "<group>";
@@ -274,6 +296,8 @@
 			files = (
 				E159804C27A6F063004D1C69 /* StringExtension.swift in Sources */,
 				E159803127A6D2D2004D1C69 /* GroupMessageView.swift in Sources */,
+				E105ECC527AECAC60070D084 /* GroupMemberListView.swift in Sources */,
+				E105ECC327AECA290070D084 /* GroupInfoView.swift in Sources */,
 				E105ECB727AE58BC0070D084 /* listItem.swift in Sources */,
 				E159802D27A6D290004D1C69 /* POIModel.swift in Sources */,
 				E1940AF427A6CEFE000FB2AE /* ContentView.swift in Sources */,
@@ -282,7 +306,7 @@
 				E159803327A6D2E4004D1C69 /* GroupDetailView.swift in Sources */,
 				E159802727A6D1D9004D1C69 /* GroupListView.swift in Sources */,
 				E159802A27A6D265004D1C69 /* UserModel.swift in Sources */,
-				E159802F27A6D2B8004D1C69 /* SearchGroupView.swift in Sources */,
+				E159802F27A6D2B8004D1C69 /* GroupSearchView.swift in Sources */,
 				E105ECB927AE5AF50070D084 /* GroupModel.swift in Sources */,
 				E159804A27A6F042004D1C69 /* POIView.swift in Sources */,
 				E1940AF227A6CEFE000FB2AE /* DehMakeSwiftUIApp.swift in Sources */,

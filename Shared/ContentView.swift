@@ -6,7 +6,11 @@
 //
 
 import SwiftUI
-
+let languageList = ["zh": "中文",
+                    "jp": "日文",
+                    "en": "英文",
+]
+let language = languageList[Locale.current.languageCode ?? ""] ?? "英文"
 struct ContentView: View {
     init() {
         let barAppearance = UINavigationBarAppearance()
@@ -14,6 +18,7 @@ struct ContentView: View {
         UINavigationBar.appearance().standardAppearance = barAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = barAppearance
         UITableView.appearance().backgroundColor = .white
+        UITabBar.appearance().backgroundColor = .orange
     }
     @EnvironmentObject var setting:SettingStore
     @State private var selection:Int? = nil
@@ -34,7 +39,7 @@ struct ContentView: View {
 //
 //                    }
                 }
-                .listStyle(GroupedListStyle())
+                .listStyle(.plain)
                 HStack {
                     Spacer()
                     NavigationLink(destination: POIView(type: "picture"), label: {
