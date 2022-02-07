@@ -12,7 +12,10 @@ import Alamofire
 struct GroupListView: View {
     @EnvironmentObject var setting:SettingStore
     @State private var cancellable: AnyCancellable?
+    @State private var cancellable2: AnyCancellable?
     @State private var groups:[Group] = []
+    @State private var infos:[GroupNotification.Info] = []
+    @State private var alertState:Bool = false
     var body: some View {
         VStack(spacing: 0){
             List {
@@ -40,8 +43,10 @@ struct GroupListView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    NavigationLink(destination: GroupMessageView()) {
-                        Image(systemName: "message.circle.fill")
+                    if alertState {
+                        NavigationLink(destination: GroupMessageView(infos: infos)) {
+                            Image(systemName: "message.circle.fill")
+                        }
                     }
                     NavigationLink(destination: GroupSearchView()) {
                         Image(systemName: "magnifyingglass.circle.fill")
@@ -53,6 +58,7 @@ struct GroupListView: View {
         }
         .onAppear {
             getGroupList()
+            getGroupMessages()
         }
     }
     
@@ -70,6 +76,25 @@ extension GroupListView {
         self.cancellable = publisher
             .sink(receiveValue: {(values) in
                 self.groups = values.value?.results ?? []
+            })
+    }
+    func getGroupMessages() {
+        let url = GroupGetNotifiUrl
+        let temp = """
+        {
+            "username":"\(setting.account)"
+        }
+        """
+        let parameters = ["notification":temp]
+        let publisher = AF.request(url, method: .post, parameters: parameters)
+            .publishDecodable(type: GroupNotification.self, queue: .main)
+        cancellable2 = publisher
+            .sink(receiveValue: { (values) in
+                let message = values.value?.message ?? ""
+                if message == "have notification" {
+                    alertState = true
+                    infos = values.value?.result ?? []
+                }
             })
     }
 }

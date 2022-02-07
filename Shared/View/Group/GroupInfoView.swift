@@ -24,30 +24,32 @@ struct GroupInfoView:View{
     @State private var disableState:Bool = true
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10){
-            HStack {
-                Text("Group Name:")
-                TextField("", text: $name)
-                    .textFieldStyle(.roundedBorder)
-                    .disabled(disableState)
-            }
-            Text("information")
-            TextEditor(text: $description)
-                .frame(height:400)
-                .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 0.05))
-                .disabled(disableState)
-            if setting.id == group.leaderId || buttonText == "Create"{
-                Button {
-                    butttonClick()
-                } label: {
-                    Text(buttonText)
-                        .padding(.vertical,10)
-                        .padding(.horizontal)
-                        .background(.orange)
-                        .foregroundColor(.white)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 10){
+                HStack {
+                    Text("Group Name:")
+                    TextField("", text: $name)
+                        .textFieldStyle(.roundedBorder)
+                        .disabled(disableState)
                 }
+                Text("information")
+                TextEditor(text: $description)
+                    .frame(height:400)
+                    .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 0.05))
+                    .disabled(disableState)
+                if setting.id == group.leaderId || buttonText == "Create"{
+                    Button {
+                        butttonClick()
+                    } label: {
+                        Text(buttonText)
+                            .padding(.vertical,10)
+                            .padding(.horizontal)
+                            .background(.orange)
+                            .foregroundColor(.white)
+                    }
+                }
+                Spacer()
             }
-            Spacer()
         }
         .alert(alertText, isPresented: $alertState) {
             Button {

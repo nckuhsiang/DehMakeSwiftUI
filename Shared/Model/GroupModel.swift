@@ -23,9 +23,9 @@ class Group:Identifiable,Decodable {
         self.info = info
     }
 }
-class GroupMemberList:Decodable {
-    let result:[GroupMember]
-    class GroupMember:Decodable,Identifiable {
+class GroupMember:Decodable {
+    let result:[Member]
+    class Member:Decodable,Identifiable {
         var name:String
         var role:String
         enum CodingKeys:String, CodingKey {
@@ -38,9 +38,9 @@ class GroupMemberList:Decodable {
         }
     }
 }
-class PublicGroupList:Decodable{
-    let result:[PublicGroup]
-    class PublicGroup:Decodable,Identifiable {
+class PublicGroups:Decodable{
+    let result:[Name]
+    class Name:Decodable,Identifiable {
         var name:String
         init(name:String) {
             self.name = name
@@ -51,7 +51,43 @@ class PublicGroupList:Decodable{
         }
     }
 }
-
+class GroupNotification:Decodable {
+    var result:[GroupNotification.Info]?
+    var message:String
+    
+    init(result:[GroupNotification.Info], message:String) {
+        self.result = result
+        self.message = message
+    }
+    class Info:Decodable, Identifiable,Equatable{
+        var name:String
+        var sender:String
+        var type:String
+        var id:Int
+        
+        init(name:String,sender:String,type:String,id:Int) {
+            self.name = name
+            self.sender = sender
+            self.type = type
+            self.id = id
+        }
+        
+        enum CodingKeys:String, CodingKey {
+            case name = "group_name"
+            case sender = "sender_name"
+            case type = "group_role"
+            case id = "group_id"
+        }
+        static func == (lhs: GroupNotification.Info, rhs: GroupNotification.Info) -> Bool {
+            if lhs.id == rhs.id {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+    }
+}
 
 
 class Message:Decodable {

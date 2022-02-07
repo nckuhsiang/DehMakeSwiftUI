@@ -13,11 +13,14 @@ let languageList = ["zh": "中文",
 let language = languageList[Locale.current.languageCode ?? ""] ?? "英文"
 struct ContentView: View {
     init() {
+        UITableView.appearance().backgroundColor = .white
         let barAppearance = UINavigationBarAppearance()
         barAppearance.backgroundColor = UIColor.black
         UINavigationBar.appearance().standardAppearance = barAppearance
         UINavigationBar.appearance().scrollEdgeAppearance = barAppearance
-        UITableView.appearance().backgroundColor = .white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .white
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).tintColor = .black
+        
         UITabBar.appearance().backgroundColor = .orange
     }
     @EnvironmentObject var setting:SettingStore
@@ -66,7 +69,7 @@ struct ContentView: View {
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    Text("POI List")
+                    Text("Hi \(setting.name)" )
                         .font(.title2)
                         .foregroundColor(.white)
                 }

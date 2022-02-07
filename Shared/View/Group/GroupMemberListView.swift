@@ -11,7 +11,7 @@ import Alamofire
 struct GroupMemberListView:View {
     let group:Group
     @EnvironmentObject var setting:SettingStore
-    @State var members:[GroupMemberList.GroupMember] = []
+    @State var members:[GroupMember.Member] = []
     @State private var cancellable: AnyCancellable?
     @State private var name:String = ""
     @State private var alertState:Bool = false
@@ -59,7 +59,7 @@ extension GroupMemberListView {
         ["group_id":"\(group.id)",
          "coi_name":setting.coi]
         let publisher = AF.request(url, method: .post, parameters: parameters)
-            .publishDecodable(type: GroupMemberList.self, queue: .main)
+            .publishDecodable(type: GroupMember.self, queue: .main)
         self.cancellable = publisher
             .sink(receiveValue: { (values) in
                 members = values.value?.result ?? []
