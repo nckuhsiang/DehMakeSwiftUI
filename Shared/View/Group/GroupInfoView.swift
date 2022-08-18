@@ -18,7 +18,6 @@ struct GroupInfoView:View{
     @State private var cancellable: AnyCancellable?
     @State private var name:String = ""
     @State private var description:String = ""
-    
     @State private var alertState:Bool = false
     @State private var alertText:String = ""
     @State private var disableState:Bool = true
@@ -36,6 +35,9 @@ struct GroupInfoView:View{
                 TextEditor(text: $description)
                     .frame(height:400)
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 0.05))
+                    .onTapGesture {
+                        UIApplication.dismissKeyboard()
+                    }
                     .disabled(disableState)
                 if setting.id == group.leaderId || buttonText == "Create"{
                     Button {
@@ -82,13 +84,11 @@ extension GroupInfoView {
     }
     func updateGroup() {
         let url = GroupUpdateUrl
-        let temp = """
-        {
+        let temp = [
         "group_name": "\(name)",
         "group_info": "\(description)",
         "group_id": "\(group.id)"
-        }
-        """
+        ]
         let parameters = ["group_update_info":temp]
         let publisher = AF.request(url, method: .post, parameters: parameters)
             .publishDecodable(type: Message.self, queue: .main)

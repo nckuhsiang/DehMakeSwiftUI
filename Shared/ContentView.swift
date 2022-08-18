@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+import CoreLocation
+
+
 let languageList = ["zh": "中文",
                     "jp": "日文",
                     "en": "英文",
@@ -13,6 +16,7 @@ let languageList = ["zh": "中文",
 let language = languageList[Locale.current.languageCode ?? ""] ?? "英文"
 struct ContentView: View {
     init() {
+        UITableView.appearance().separatorColor = .clear
         UITableView.appearance().backgroundColor = .white
         let barAppearance = UINavigationBarAppearance()
         barAppearance.backgroundColor = UIColor.black

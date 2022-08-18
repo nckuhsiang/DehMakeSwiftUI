@@ -18,12 +18,10 @@ struct GroupListView: View {
     @State private var alertState:Bool = false
     var body: some View {
         VStack(spacing: 0){
-            List {
-                ForEach(self.groups) { group in
+            List(setting.groups){ group in
                     NavigationLink(destination: GroupDetailView(group: group)) {
                         listItem(picture: group.leaderId == setting.id ? "leaderrr":"leaderlisticon", title: group.name, decription:  group.leaderId == setting.id ? "leader":"member")
                     }
-                }
             }
             .listStyle(.plain)
             NavigationLink(destination: GroupInfoView(group: Group(id: -1, name: "", leaderId: -1, info: ""), buttonText:"Create")){
@@ -75,7 +73,7 @@ extension GroupListView {
             .publishDecodable(type: GroupLists.self, queue: .main)
         self.cancellable = publisher
             .sink(receiveValue: {(values) in
-                self.groups = values.value?.results ?? []
+                setting.groups = values.value?.results ?? []
             })
     }
     func getGroupMessages() {

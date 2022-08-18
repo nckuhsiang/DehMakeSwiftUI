@@ -39,6 +39,7 @@ class SettingStore:ObservableObject {
             UserDefaults.standard.set(role, forKey: "role")
         }
     }
+    @Published var groups:[Group] = []
     
 }
 class loginModel: Decodable {

@@ -8,6 +8,7 @@
 import SwiftUI
 import Alamofire
 import Combine
+//傳遞訊息與動態刪除訊息清單的地方寫的有點醜
 struct GroupMessageView: View {
     @State var infos:[GroupNotification.Info]
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>

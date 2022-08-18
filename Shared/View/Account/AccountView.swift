@@ -10,13 +10,11 @@ import Alamofire
 import Combine
 
 struct AccountView: View {
-    let website = ["deh":"http://deh.csie.ncku.edu.tw/",
-                   "sdc":"http://deh.csie.ncku.edu.tw/sdc",
-                   "extn":"http://exptainan.liberal.ncku.edu.tw/"]
+    let website = ["deh":DEHHomePageUrl,
+                   "sdc":SDCHomePageUrl,
+                   "extn":ExpTainanHomePageUrl]
     @EnvironmentObject var setting:SettingStore
     @Environment(\.presentationMode) var presentationMode
-    @State private var account:String = ""
-    @State private var password:String = ""
     @State private var loginState:Bool = false
     @State private var alertState:Bool = false
     @State private var alertText:String = ""
@@ -32,10 +30,10 @@ struct AccountView: View {
             }
             .padding(.bottom,50)
             VStack {
-                TextField("account".localized, text: $account)
+                TextField("account".localized, text: $setting.account)
                     .textFieldStyle(.roundedBorder)
                     .frame(width: 300, height: 35)
-                SecureField("password".localized,text: $password)
+                SecureField("password".localized,text: $setting.password)
                     .textFieldStyle(.roundedBorder)
                     .frame(width: 300, height: 35)
                 
@@ -85,13 +83,6 @@ struct AccountView: View {
                 Text("OK".localized)
             }
         })
-        .onAppear {
-            if setting.id != -1 {
-                loginState = true
-                account = setting.account
-                password = "fakePassword"
-            }
-        }
         
     }
 }
@@ -99,8 +90,8 @@ extension AccountView {
     func login() {
         let url = UserLoginUrl
         let parameter = [
-            "username":account,
-            "password":password.md5(),
+            "username":setting.account,
+            "password":setting.password.md5(),
             "coi_name":setting.coi
         ]
         let publisher = AF.request(url, method: .post, parameters: parameter)
@@ -113,8 +104,6 @@ extension AccountView {
                     print("User" + "\(values.value?.message ?? "Not Found")")
                 }
                 else {
-                    setting.account = account
-                    setting.password = password.md5()
                     setting.id = values.value?.id ?? 0
                     setting.name = values.value?.name ?? ""
                     setting.role = values.value?.role ?? ""

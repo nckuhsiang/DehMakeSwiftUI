@@ -12,6 +12,8 @@
 		E105ECBE27AE63620070D084 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E105ECC027AE63620070D084 /* Localizable.strings */; };
 		E105ECC327AECA290070D084 /* GroupInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105ECC227AECA290070D084 /* GroupInfoView.swift */; };
 		E105ECC527AECAC60070D084 /* GroupMemberListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E105ECC427AECAC60070D084 /* GroupMemberListView.swift */; };
+		E12B9A9627B2E0F60093679A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E12B9A9527B2E0F60093679A /* LocationManager.swift */; };
+		E139E4BF27B2BCAE00D05BBB /* POIs.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E139E4BD27B2BCAE00D05BBB /* POIs.xcdatamodeld */; };
 		E159802727A6D1D9004D1C69 /* GroupListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159802627A6D1D8004D1C69 /* GroupListView.swift */; };
 		E159802A27A6D265004D1C69 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159802927A6D265004D1C69 /* UserModel.swift */; };
 		E159802D27A6D290004D1C69 /* POIModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159802C27A6D290004D1C69 /* POIModel.swift */; };
@@ -24,12 +26,19 @@
 		E159804A27A6F042004D1C69 /* POIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159804927A6F042004D1C69 /* POIView.swift */; };
 		E159804C27A6F063004D1C69 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159804B27A6F063004D1C69 /* StringExtension.swift */; };
 		E159804F27A6F094004D1C69 /* URLList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E159804E27A6F094004D1C69 /* URLList.swift */; };
+		E177492F28AE44AC00B1EFEB /* PictureDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177492E28AE44AC00B1EFEB /* PictureDialogView.swift */; };
+		E177493128AE49BD00B1EFEB /* ImagePocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177493028AE49BD00B1EFEB /* ImagePocker.swift */; };
+		E177493328AE52DC00B1EFEB /* TabButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E177493228AE52DC00B1EFEB /* TabButton.swift */; };
 		E1940AF227A6CEFE000FB2AE /* DehMakeSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1940AE227A6CEFD000FB2AE /* DehMakeSwiftUIApp.swift */; };
 		E1940AF327A6CEFE000FB2AE /* DehMakeSwiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1940AE227A6CEFD000FB2AE /* DehMakeSwiftUIApp.swift */; };
 		E1940AF427A6CEFE000FB2AE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1940AE327A6CEFD000FB2AE /* ContentView.swift */; };
 		E1940AF527A6CEFE000FB2AE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1940AE327A6CEFD000FB2AE /* ContentView.swift */; };
 		E1940AF627A6CEFE000FB2AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1940AE427A6CEFE000FB2AE /* Assets.xcassets */; };
 		E1940AF727A6CEFE000FB2AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1940AE427A6CEFE000FB2AE /* Assets.xcassets */; };
+		E1C3104927B3724E001C191C /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3104827B3724E001C191C /* UIApplicationExtension.swift */; };
+		E1C3104B27B3753D001C191C /* Picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3104A27B3753D001C191C /* Picker.swift */; };
+		E1C3104D27B3C612001C191C /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3104C27B3C612001C191C /* Field.swift */; };
+		E1C3104F27B3C6D6001C191C /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3104E27B3C6D6001C191C /* Editor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +48,8 @@
 		E105ECC127AE63650070D084 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E105ECC227AECA290070D084 /* GroupInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupInfoView.swift; sourceTree = "<group>"; };
 		E105ECC427AECAC60070D084 /* GroupMemberListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMemberListView.swift; sourceTree = "<group>"; };
+		E12B9A9527B2E0F60093679A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		E139E4BE27B2BCAE00D05BBB /* POIs.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = POIs.xcdatamodel; sourceTree = "<group>"; };
 		E159802627A6D1D8004D1C69 /* GroupListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupListView.swift; sourceTree = "<group>"; };
 		E159802927A6D265004D1C69 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		E159802C27A6D290004D1C69 /* POIModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIModel.swift; sourceTree = "<group>"; };
@@ -50,12 +61,19 @@
 		E159804927A6F042004D1C69 /* POIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = POIView.swift; sourceTree = "<group>"; };
 		E159804B27A6F063004D1C69 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		E159804E27A6F094004D1C69 /* URLList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLList.swift; sourceTree = "<group>"; };
+		E177492E28AE44AC00B1EFEB /* PictureDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureDialogView.swift; sourceTree = "<group>"; };
+		E177493028AE49BD00B1EFEB /* ImagePocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePocker.swift; sourceTree = "<group>"; };
+		E177493228AE52DC00B1EFEB /* TabButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabButton.swift; sourceTree = "<group>"; };
 		E1940AE227A6CEFD000FB2AE /* DehMakeSwiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DehMakeSwiftUIApp.swift; sourceTree = "<group>"; };
 		E1940AE327A6CEFD000FB2AE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E1940AE427A6CEFE000FB2AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1940AE927A6CEFE000FB2AE /* DehMakeSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DehMakeSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1940AEF27A6CEFE000FB2AE /* DehMakeSwiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DehMakeSwiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1940AF127A6CEFE000FB2AE /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
+		E1C3104827B3724E001C191C /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
+		E1C3104A27B3753D001C191C /* Picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Picker.swift; sourceTree = "<group>"; };
+		E1C3104C27B3C612001C191C /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		E1C3104E27B3C6D6001C191C /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		E1D0429F27AE34CC000427B3 /* DehMakeSwiftUI--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DehMakeSwiftUI--iOS--Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -90,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				E159804B27A6F063004D1C69 /* StringExtension.swift */,
+				E1C3104827B3724E001C191C /* UIApplicationExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -100,6 +119,8 @@
 				E159802927A6D265004D1C69 /* UserModel.swift */,
 				E105ECB827AE5AF50070D084 /* GroupModel.swift */,
 				E159802C27A6D290004D1C69 /* POIModel.swift */,
+				E139E4BD27B2BCAE00D05BBB /* POIs.xcdatamodeld */,
+				E12B9A9527B2E0F60093679A /* LocationManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -108,6 +129,12 @@
 			isa = PBXGroup;
 			children = (
 				E159804927A6F042004D1C69 /* POIView.swift */,
+				E177493028AE49BD00B1EFEB /* ImagePocker.swift */,
+				E1C3104A27B3753D001C191C /* Picker.swift */,
+				E1C3104C27B3C612001C191C /* Field.swift */,
+				E1C3104E27B3C6D6001C191C /* Editor.swift */,
+				E177492E28AE44AC00B1EFEB /* PictureDialogView.swift */,
+				E177493228AE52DC00B1EFEB /* TabButton.swift */,
 			);
 			path = POIView;
 			sourceTree = "<group>";
@@ -158,8 +185,8 @@
 		E1940B0027A6CF26000FB2AE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E159804827A6F025004D1C69 /* POIView */,
 				E1940B0327A6CF85000FB2AE /* Group */,
+				E159804827A6F025004D1C69 /* POIView */,
 				E1940B0127A6CF55000FB2AE /* Account */,
 			);
 			path = View;
@@ -294,22 +321,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E177492F28AE44AC00B1EFEB /* PictureDialogView.swift in Sources */,
 				E159804C27A6F063004D1C69 /* StringExtension.swift in Sources */,
 				E159803127A6D2D2004D1C69 /* GroupMessageView.swift in Sources */,
+				E1C3104F27B3C6D6001C191C /* Editor.swift in Sources */,
+				E1C3104927B3724E001C191C /* UIApplicationExtension.swift in Sources */,
+				E177493128AE49BD00B1EFEB /* ImagePocker.swift in Sources */,
 				E105ECC527AECAC60070D084 /* GroupMemberListView.swift in Sources */,
 				E105ECC327AECA290070D084 /* GroupInfoView.swift in Sources */,
 				E105ECB727AE58BC0070D084 /* listItem.swift in Sources */,
+				E177493328AE52DC00B1EFEB /* TabButton.swift in Sources */,
 				E159802D27A6D290004D1C69 /* POIModel.swift in Sources */,
+				E139E4BF27B2BCAE00D05BBB /* POIs.xcdatamodeld in Sources */,
 				E1940AF427A6CEFE000FB2AE /* ContentView.swift in Sources */,
 				E159803527A6D2FD004D1C69 /* COIView.swift in Sources */,
+				E1C3104D27B3C612001C191C /* Field.swift in Sources */,
 				E159803927A6D33E004D1C69 /* AccountView.swift in Sources */,
 				E159803327A6D2E4004D1C69 /* GroupDetailView.swift in Sources */,
 				E159802727A6D1D9004D1C69 /* GroupListView.swift in Sources */,
 				E159802A27A6D265004D1C69 /* UserModel.swift in Sources */,
 				E159802F27A6D2B8004D1C69 /* GroupSearchView.swift in Sources */,
 				E105ECB927AE5AF50070D084 /* GroupModel.swift in Sources */,
+				E1C3104B27B3753D001C191C /* Picker.swift in Sources */,
 				E159804A27A6F042004D1C69 /* POIView.swift in Sources */,
 				E1940AF227A6CEFE000FB2AE /* DehMakeSwiftUIApp.swift in Sources */,
+				E12B9A9627B2E0F60093679A /* LocationManager.swift in Sources */,
 				E159804F27A6F094004D1C69 /* URLList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,11 +496,16 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "DehMakeSwiftUI--iOS--Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera permission";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Application requires user’s location for better user experience.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Application requires user’s location for better user experience.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -491,11 +532,16 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "DehMakeSwiftUI--iOS--Info.plist";
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_LSSupportsOpeningDocumentsInPlace = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need the camera permission";
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Application requires user’s location for better user experience.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Application requires user’s location for better user experience.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -618,6 +664,19 @@
 			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		E139E4BD27B2BCAE00D05BBB /* POIs.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E139E4BE27B2BCAE00D05BBB /* POIs.xcdatamodel */,
+			);
+			currentVersion = E139E4BE27B2BCAE00D05BBB /* POIs.xcdatamodel */;
+			path = POIs.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = E1940ADD27A6CEFD000FB2AE /* Project object */;
 }
