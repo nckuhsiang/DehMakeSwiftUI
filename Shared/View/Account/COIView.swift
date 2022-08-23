@@ -28,12 +28,12 @@ struct COIView: View {
 struct COIItem: View{
     let coi:String
     let title:String
-    @EnvironmentObject var setting:SettingStore
+    @EnvironmentObject var uvm:UserViewModel
     @Environment(\.presentationMode) var presentationMode
 
     var body: some View {
         Button {
-            setting.coi = coi
+            uvm.coi = coi
             presentationMode.wrappedValue.dismiss()
         } label: {
             HStack(spacing: 20){

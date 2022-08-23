@@ -10,17 +10,13 @@ import Combine
 import Alamofire
 
 struct GroupListView: View {
-    @EnvironmentObject var setting:SettingStore
-    @State private var cancellable: AnyCancellable?
-    @State private var cancellable2: AnyCancellable?
-    @State private var groups:[Group] = []
-    @State private var infos:[GroupNotification.Info] = []
-    @State private var alertState:Bool = false
+    @EnvironmentObject var uvm:UserViewModel
+    @EnvironmentObject var gvm:GroupViewModel
     var body: some View {
         VStack(spacing: 0){
-            List(setting.groups){ group in
+            List(gvm.groups){ group in
                     NavigationLink(destination: GroupDetailView(group: group)) {
-                        listItem(picture: group.leaderId == setting.id ? "leaderrr":"leaderlisticon", title: group.name, decription:  group.leaderId == setting.id ? "leader":"member")
+                        listItem(picture: group.leaderId == uvm.id ? "leaderrr":"leaderlisticon", title: group.name, decription:  group.leaderId == uvm.id ? "leader":"member")
                     }
             }
             .listStyle(.plain)
@@ -41,8 +37,8 @@ struct GroupListView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    if alertState {
-                        NavigationLink(destination: GroupMessageView(infos: infos)) {
+                    if gvm.displayMessageView {
+                        NavigationLink(destination: GroupMessageView(infos: gvm.infos)) {
                             Image(systemName: "message.circle.fill")
                         }
                     }
@@ -55,50 +51,16 @@ struct GroupListView: View {
             }
         }
         .onAppear {
-            getGroupList()
-            getGroupMessages()
+            gvm.getGroupMessages(account: uvm.account)
+            gvm.getGroupList(id: uvm.id, coi: uvm.coi, language: language)
         }
     }
     
 }
-extension GroupListView {
-    func getGroupList(){
-        let url = GroupGetUserGroupListUrl
-        let parameters = [
-            "user_id": "\(setting.id)",
-            "coi_name": setting.coi,
-            "language": language,
-        ]
-        let publisher = AF.request(url, method: .post, parameters: parameters)
-            .publishDecodable(type: GroupLists.self, queue: .main)
-        self.cancellable = publisher
-            .sink(receiveValue: {(values) in
-                setting.groups = values.value?.results ?? []
-            })
-    }
-    func getGroupMessages() {
-        let url = GroupGetNotifiUrl
-        let temp = """
-        {
-            "username":"\(setting.account)"
-        }
-        """
-        let parameters = ["notification":temp]
-        let publisher = AF.request(url, method: .post, parameters: parameters)
-            .publishDecodable(type: GroupNotification.self, queue: .main)
-        cancellable2 = publisher
-            .sink(receiveValue: { (values) in
-                let message = values.value?.message ?? ""
-                if message == "have notification" {
-                    alertState = true
-                    infos = values.value?.result ?? []
-                }
-            })
-    }
-}
+
 
 struct GroupListView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupListView().environmentObject(SettingStore())
+        GroupListView().environmentObject(UserViewModel())
     }
 }

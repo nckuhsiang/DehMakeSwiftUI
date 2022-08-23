@@ -1,10 +1,10 @@
-class GroupLists:Decodable{
+struct GroupLists:Decodable{
     let results: [Group]?
     let eventList:[Group]?
     let groupList:[Group]?
 }
 //Hashable
-class Group:Identifiable,Decodable {
+struct Group:Identifiable,Decodable {
     var id:Int
     var name:String
     var leaderId:Int
@@ -23,7 +23,7 @@ class Group:Identifiable,Decodable {
         self.info = info
     }
 }
-class GroupMember:Decodable {
+struct GroupMember:Decodable {
     let result:[Member]
     class Member:Decodable,Identifiable {
         var name:String
@@ -38,7 +38,7 @@ class GroupMember:Decodable {
         }
     }
 }
-class PublicGroups:Decodable{
+struct PublicGroups:Decodable{
     let result:[Name]
     class Name:Decodable,Identifiable {
         var name:String
@@ -51,7 +51,7 @@ class PublicGroups:Decodable{
         }
     }
 }
-class GroupNotification:Decodable {
+struct GroupNotification:Decodable {
     var result:[GroupNotification.Info]?
     var message:String
     
@@ -90,6 +90,8 @@ class GroupNotification:Decodable {
 }
 
 
-class Message:Decodable {
+struct Message:Decodable {
     var message:String
 }
+
+

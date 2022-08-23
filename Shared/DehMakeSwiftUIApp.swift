@@ -11,7 +11,9 @@ import SwiftUI
 struct DehMakeSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(SettingStore())
+            ContentView()
+                .environmentObject(UserViewModel())
+                .environmentObject(GroupViewModel())
         }
     }
 }

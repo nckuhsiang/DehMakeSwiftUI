@@ -13,27 +13,25 @@ struct AccountView: View {
     let website = ["deh":DEHHomePageUrl,
                    "sdc":SDCHomePageUrl,
                    "extn":ExpTainanHomePageUrl]
-    @EnvironmentObject var setting:SettingStore
+    @EnvironmentObject var uvm:UserViewModel
     @Environment(\.presentationMode) var presentationMode
-    @State private var loginState:Bool = false
-    @State private var alertState:Bool = false
-    @State private var alertText:String = ""
-    @State private var cancellable: AnyCancellable?
+    @State private var account = ""
+    @State private var password = ""
     var body: some View {
         VStack(alignment: .center, spacing: 5){
-            Image("\(setting.coi)_icon")
+            Image("\(uvm.coi)_icon")
             HStack {
-                Text(setting.coi)
-                Link(destination: URL(string:website[setting.coi] ?? "http://deh.csie.ncku.edu.tw/")!, label: {
+                Text(uvm.coi)
+                Link(destination: URL(string:website[uvm.coi] ?? "http://deh.csie.ncku.edu.tw/")!, label: {
                     Text("more...".localized)
                 })
             }
             .padding(.bottom,50)
             VStack {
-                TextField("account".localized, text: $setting.account)
+                TextField("account".localized, text: $uvm.account)
                     .textFieldStyle(.roundedBorder)
                     .frame(width: 300, height: 35)
-                SecureField("password".localized,text: $setting.password)
+                SecureField("password".localized,text: $uvm.password)
                     .textFieldStyle(.roundedBorder)
                     .frame(width: 300, height: 35)
                 
@@ -42,7 +40,7 @@ struct AccountView: View {
             
             VStack {
                     Button {
-                        login()
+                        uvm.login()
                     } label: {
                         Text("login".localized)
                             .frame(width: 300, height: 35)
@@ -74,9 +72,9 @@ struct AccountView: View {
                 }
             }
         }
-        .alert(alertText, isPresented: $alertState, actions: {
+        .alert(uvm.alertText, isPresented: $uvm.alertState, actions: {
             Button {
-                if alertText == "login success".localized {
+                if uvm.alertText == "login success".localized {
                     presentationMode.wrappedValue.dismiss()
                 }
             } label: {
@@ -86,37 +84,8 @@ struct AccountView: View {
         
     }
 }
-extension AccountView {
-    func login() {
-        let url = UserLoginUrl
-        let parameter = [
-            "username":setting.account,
-            "password":setting.password.md5(),
-            "coi_name":setting.coi
-        ]
-        let publisher = AF.request(url, method: .post, parameters: parameter)
-            .publishDecodable(type: loginModel.self, queue: .main)
-        self.cancellable = publisher
-            .sink(receiveValue: {(values) in
-                
-                if let _ = values.value?.message {
-                    alertText = "login fail".localized
-                    print("User" + "\(values.value?.message ?? "Not Found")")
-                }
-                else {
-                    setting.id = values.value?.id ?? 0
-                    setting.name = values.value?.name ?? ""
-                    setting.role = values.value?.role ?? ""
-                    loginState = true
-                    alertText = "login success".localized
-                    print("login success, user info:",setting.id,setting.name)
-                }
-                alertState = true
-            })
-    }
-}
 struct AccountView_Previews: PreviewProvider {
     static var previews: some View {
-        AccountView().environmentObject(SettingStore())
+        AccountView().environmentObject(UserViewModel())
     }
 }

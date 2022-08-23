@@ -7,13 +7,21 @@
 
 import SwiftUI
 import CoreLocation
-
+import Alamofire
+import Combine
 
 let languageList = ["zh": "中文",
                     "jp": "日文",
                     "en": "英文",
 ]
 let language = languageList[Locale.current.languageCode ?? ""] ?? "英文"
+
+enum mediaType {
+    case image
+    case audio
+    case video
+}
+
 struct ContentView: View {
     init() {
         UITableView.appearance().separatorColor = .clear
@@ -27,13 +35,15 @@ struct ContentView: View {
         
         UITabBar.appearance().backgroundColor = .orange
     }
-    @EnvironmentObject var setting:SettingStore
+    @EnvironmentObject var uvm:UserViewModel
+    @EnvironmentObject var gvm:GroupViewModel
     @State private var selection:Int? = nil
     @State private var picturePOI:Bool = false
     @State private var audioPOI:Bool = false
     @State private var videoPOI:Bool = false
     @State private var alertState:Bool = false
     @State private var nextView:Bool = false
+    @State private var cancellable: AnyCancellable?
 //    let pois = [POI(name: "成功大學", belong: "屬於自己", type: "picture"),
 //                POI(name: "資訊工程新館", belong: "屬於自己", type: "video"),
 //                POI(name: "安平古堡", belong: "屬於自己", type: "audio"),
@@ -49,15 +59,15 @@ struct ContentView: View {
                 .listStyle(.plain)
                 HStack {
                     Spacer()
-                    NavigationLink(destination: POIView(type: "picture"), label: {
+                    NavigationLink(destination: POIView(type: mediaType.image), label: {
                         Image("picture")
                     })
                     Spacer()
-                    NavigationLink(destination: POIView(type: "speaker"), label: {
+                    NavigationLink(destination: POIView(type: mediaType.audio), label: {
                         Image("speaker")
                     })
                     Spacer()
-                    NavigationLink(destination: POIView(type: "video-player"), label: {
+                    NavigationLink(destination: POIView(type: mediaType.video), label: {
                         Image("video-player")
                     })
                     Spacer()
@@ -73,7 +83,7 @@ struct ContentView: View {
                     }
                 }
                 ToolbarItem(placement: .principal) {
-                    Text("Hi \(setting.name)" )
+                    Text("Hi \(uvm.name)" )
                         .font(.title2)
                         .foregroundColor(.white)
                 }
@@ -82,7 +92,7 @@ struct ContentView: View {
                         Image(systemName: "person.crop.circle")
                             .foregroundColor(.white)
                             .onTapGesture {
-                                if setting.id != -1 {
+                                if uvm.id != -1 {
                                     alertState = true
                                 }
                                 else {
@@ -91,7 +101,7 @@ struct ContentView: View {
                             }
                             .alert("Would you want to logout?", isPresented: $alertState) {
                                 Button {
-                                    logout()
+                                    uvm.logout()
                                     nextView = true
                                 } label: {
                                     Text("Yes")
@@ -106,21 +116,11 @@ struct ContentView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-        }
-        
-    }
-}
-extension ContentView {
-    func logout() {
-        setting.account = ""
-        setting.password = ""
-        setting.id = -1
-        setting.name = ""
-        setting.role = ""
+        }        
     }
 }
 struct POIItem:View {
-    var type:String
+    var type:mediaType
     var picture:String
     var title:String
     var decription:String
@@ -133,6 +133,6 @@ struct POIItem:View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(SettingStore())
+        ContentView().environmentObject(UserViewModel())
     }
 }

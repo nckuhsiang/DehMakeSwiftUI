@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class POI:Identifiable {
     var id: Int
@@ -59,21 +60,5 @@ class POI:Identifiable {
 }
 
 
-class POIViewModel: ObservableObject {
-    @Published var name:String = ""
-    @Published var longitude:String = ""
-    @Published var latitude:String = ""
-    @Published var format:String = ""
-    @Published var keyword:String = ""
-    @Published var group:String = ""
-    @Published var description:String = ""
-    @Published var alertState:Bool = false
-    @Published var pickerState:Bool = false
-    @Published var sheetState:Bool = false
-    @Published var pickerData = ""
-    @Published var groups:[String] = []
-    @Published var image: UIImage? = nil
-    
-    @Published var showPictureDialog:Bool = false
-    @Published var showAlert:Bool = false
-}
+
+

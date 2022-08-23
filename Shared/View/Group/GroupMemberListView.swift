@@ -10,12 +10,9 @@ import Combine
 import Alamofire
 struct GroupMemberListView:View {
     let group:Group
-    @EnvironmentObject var setting:SettingStore
-    @State var members:[GroupMember.Member] = []
-    @State private var cancellable: AnyCancellable?
+    @EnvironmentObject var uvm:UserViewModel
+    @EnvironmentObject var gvm:GroupViewModel
     @State private var name:String = ""
-    @State private var alertState:Bool = false
-    @State private var alertText:String = ""
     var body: some View {
         VStack {
             HStack {
@@ -23,7 +20,7 @@ struct GroupMemberListView:View {
                 TextField("User name", text: $name)
                     .textFieldStyle(.roundedBorder)
                 Button {
-                    invite()
+                    gvm.inviteMember(account: uvm.account, name: name, group_id: group.id, coi: uvm.coi)
                 } label: {
                     Image(systemName: "plus.circle")
                         .foregroundColor(.orange)
@@ -33,7 +30,7 @@ struct GroupMemberListView:View {
             Text("Group Member")
                 .font(.system(size: 20, weight: .bold, design: .default))
             List {
-                ForEach(members){ member in
+                ForEach(gvm.members){ member in
                     HStack {
                         Image(member.role == "leader" ? "leaderrr":"leaderlisticon")
                         Text(member.name)
@@ -43,52 +40,21 @@ struct GroupMemberListView:View {
             .listStyle(.plain)
             Spacer()
         }
-        .alert(alertText, isPresented: $alertState) {
+        .alert(gvm.inviteResponseText, isPresented: $gvm.showInviteResponse) {
             Text("OK")
         }
         .padding()
         .onAppear {
-            getGroupMember()
+            gvm.getGroupMember(group_id: group.id, coi: uvm.coi)
         }
     }
 }
 extension GroupMemberListView {
-    func getGroupMember(){
-        let url = GroupGetMemberUrl
-        let parameters =
-        ["group_id":"\(group.id)",
-         "coi_name":setting.coi]
-        let publisher = AF.request(url, method: .post, parameters: parameters)
-            .publishDecodable(type: GroupMember.self, queue: .main)
-        self.cancellable = publisher
-            .sink(receiveValue: { (values) in
-                members = values.value?.result ?? []
-            })
-    }
-    func invite() {
-        let url = GroupInviteUrl
-        let temp = """
-        {
-            "sender_name":"\(setting.account)",
-            "receiver_name":"\(name)",
-            "group_id":"\(group.id)",
-            "message_type":"Invite",
-            "coi_name":"\(setting.coi)"
-        }
-        """
-        let parameters = ["group_message_info":temp]
-        let publisher = AF.request(url, method: .post, parameters: parameters)
-            .publishDecodable(type: Message.self, queue: .main)
-        self.cancellable = publisher
-            .sink(receiveValue: {(values) in
-                alertText = values.value?.message ?? "Error"
-                alertState = true
-            })
-    }
+    
 }
 
 struct GroupMemberListView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupMemberListView(group: Group(id: 1, name: "Mmnetlab", leaderId: 1, info: "test")).environmentObject(SettingStore())
+        GroupMemberListView(group: Group(id: 1, name: "Mmnetlab", leaderId: 1, info: "test")).environmentObject(UserViewModel())
     }
 }

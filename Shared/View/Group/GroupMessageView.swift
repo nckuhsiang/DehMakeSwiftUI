@@ -12,7 +12,8 @@ import Combine
 struct GroupMessageView: View {
     @State var infos:[GroupNotification.Info]
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @EnvironmentObject var setting:SettingStore
+    @EnvironmentObject var uvm:UserViewModel
+    @EnvironmentObject var gvm:GroupViewModel
     var body: some View {
         VStack {
             List {
@@ -34,7 +35,8 @@ struct GroupMessageView: View {
 struct MessageItem:View{
     var info:GroupNotification.Info
     @Binding var infos:[GroupNotification.Info]
-    @EnvironmentObject var setting:SettingStore
+    @EnvironmentObject var uvm:UserViewModel
+    @EnvironmentObject var gvm:GroupViewModel
     @State private var cancellable: AnyCancellable?
     @State private var sheetState:Bool = false
     @State private var alertText:String = ""
@@ -51,7 +53,7 @@ struct MessageItem:View{
         }
         .confirmationDialog("Would you want to join" + " \(info.name)?", isPresented: $sheetState, titleVisibility: .visible) {
                 Button {
-                    responseMessage(sender: info.sender, id: info.id, action: "Agree")
+                    gvm.responseMessage(sender: info.sender, id: info.id, action: "Agree", account: uvm.account, coi: uvm.coi)
                     if let index = infos.firstIndex(of:info) {
                         infos.remove(at: index)
                     }
@@ -60,7 +62,7 @@ struct MessageItem:View{
                         .foregroundColor(.blue)
                 }
             Button(role: .destructive){
-                    responseMessage(sender: info.sender, id: info.id, action: "Reject")
+                gvm.responseMessage(sender: info.sender, id: info.id, action: "Reject", account: uvm.account, coi: uvm.coi)
                     if let index = infos.firstIndex(of:info) {
                         infos.remove(at: index)
                     }
@@ -76,25 +78,7 @@ struct MessageItem:View{
     }
 }
 extension MessageItem{
-    func responseMessage(sender:String,id:Int, action:String) {
-        let url = GroupInviteUrl
-        let temp = """
-        {
-            "sender_name":"\(sender)",
-            "receiver_name":"\(setting.account)",
-            "group_id":"\(id)",
-            "message_type":"\(action)",
-            "coi_name":"\(setting.coi)"
-        }
-        """
-        let parameters = ["group_message_info":temp]
-        let publisher = AF.request(url, method: .post, parameters: parameters)
-            .publishDecodable(type: Message.self, queue: .main)
-        cancellable = publisher.sink(receiveValue: { values in
-            alertText = values.value?.message ?? "error"
-            alertState = true
-        })
-    }
+    
 }
     
 //struct GroupMessageView_Previews: PreviewProvider {

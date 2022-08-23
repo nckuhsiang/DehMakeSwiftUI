@@ -10,17 +10,17 @@ import Combine
 import Alamofire
 import CryptoKit
 struct GroupSearchView: View {
-    @EnvironmentObject var setting:SettingStore
-    
+    @EnvironmentObject var uvm:UserViewModel
+    @EnvironmentObject var gvm:GroupViewModel
     @State private var cancellable: AnyCancellable?
     @State private var text:String = ""
-    @State var publicGroups:[PublicGroups.Name] = []
+    
     var searchResults: [PublicGroups.Name] {
         //get
         if text.isEmpty {
-            return publicGroups
+            return gvm.publicGroups
         } else {
-            return publicGroups.filter { ($0.name).contains(text) }
+            return gvm.publicGroups.filter { ($0.name).contains(text) }
         }
     }
     var body: some View {
@@ -34,7 +34,7 @@ struct GroupSearchView: View {
             .searchable(text: $text,placement: .navigationBarDrawer)
         }
         .onAppear {
-            getPublicGroups()
+            gvm.getPublicGroups(account: uvm.account, coi: uvm.coi)
         }
         .toolbar {
             ToolbarItem(placement: .principal) {
@@ -46,25 +46,13 @@ struct GroupSearchView: View {
     }
 }
 extension GroupSearchView {
-    func getPublicGroups() {
-        let url = GroupGetListUrl
-        let parameters = ["username":setting.account,
-                          "coi_name":setting.coi]
-        let publisher = AF.request(url, method: .post, parameters: parameters)
-            .publishDecodable(type: PublicGroups.self, queue: .main)
-        cancellable = publisher
-            .sink(receiveValue: {(values) in
-                publicGroups = values.value?.result ?? []
-            })
-    }
+   
 }
 struct GroupItem:View {
     var name:String
-    @EnvironmentObject var setting:SettingStore
-    @State private var cancellable: AnyCancellable?
+    @EnvironmentObject var uvm:UserViewModel
+    @EnvironmentObject var gvm:GroupViewModel
     @State private var alertState:Bool = false
-    @State private var response:String = ""
-    @State private var resState:Bool = false
     var body: some View {
         Button {
             alertState = true
@@ -73,7 +61,7 @@ struct GroupItem:View {
         }
         .alert("Would you want to join \(name)", isPresented: $alertState) {
             Button {
-                join(name:name)
+                gvm.joinGroup(account: uvm.account, name: name)
             } label: {
                 Text("Yes")
             }
@@ -82,33 +70,17 @@ struct GroupItem:View {
                 Text("No")
             }
         }
-        .alert(response, isPresented: $resState) {
+        .alert(gvm.JoinResponseText, isPresented: $gvm.showJoinResponse) {
             Text("OK")
         }
     }
     
 }
 extension GroupItem {
-    func join(name:String){
-        let url = GroupMemberJoinUrl
-        let temp = """
-        {
-            "sender_name": "\(setting.account)",
-            "group_name": "\(name)"
-        }
-"""
-        let parameters = ["join_info":temp]
-        let publisher = AF.request(url, method: .post, parameters: parameters)
-            .publishDecodable(type: Message.self, queue: .main)
-        cancellable = publisher
-            .sink(receiveValue: {(values) in
-                response = values.value?.message ?? "error"
-                resState = true
-            })
-    }
+    
 }
 struct SearchGroupView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupSearchView().environmentObject(SettingStore())
+        GroupSearchView().environmentObject(UserViewModel())
     }
 }

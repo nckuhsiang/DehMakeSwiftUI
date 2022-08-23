@@ -36,6 +36,6 @@ struct GroupDetailView: View {
 
 struct GroupDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupDetailView(group: Group(id: 1, name: "Mmnetlab", leaderId: 1, info: "test")).environmentObject(SettingStore())
+        GroupDetailView(group: Group(id: 1, name: "Mmnetlab", leaderId: 1, info: "test")).environmentObject(UserViewModel())
     }
 }
