@@ -51,34 +51,31 @@ struct MessageItem:View{
                     .foregroundColor(.black)
             }
         }
-        .confirmationDialog("Would you want to join" + " \(info.name)?", isPresented: $sheetState, titleVisibility: .visible) {
-                Button {
-                    gvm.responseMessage(sender: info.sender, id: info.id, action: "Agree", account: uvm.account, coi: uvm.coi)
-                    if let index = infos.firstIndex(of:info) {
-                        infos.remove(at: index)
-                    }
-                } label: {
-                    Text("Yes")
-                        .foregroundColor(.blue)
+        .confirmationDialog("Would you want to join".localized + " \(info.name)?", isPresented: $sheetState, titleVisibility: .visible) {
+            Button {
+                gvm.responseMessage(sender: info.sender, id: info.id, action: "Agree", account: uvm.account, coi: uvm.coi)
+                if let index = infos.firstIndex(of:info) {
+                    infos.remove(at: index)
                 }
+            } label: {
+                Text("Yes".localized)
+                    .foregroundColor(.blue)
+            }
             Button(role: .destructive){
                 gvm.responseMessage(sender: info.sender, id: info.id, action: "Reject", account: uvm.account, coi: uvm.coi)
                     if let index = infos.firstIndex(of:info) {
                         infos.remove(at: index)
                     }
                 } label: {
-                    Text("No")
+                    Text("No".localized)
                         .foregroundColor(.red)
                 }
         }
         .alert(alertText, isPresented: $alertState) {
-            Text("OK")
+            Text("OK".localized)
         }
         .padding()
     }
-}
-extension MessageItem{
-    
 }
     
 //struct GroupMessageView_Previews: PreviewProvider {

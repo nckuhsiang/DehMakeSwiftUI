@@ -65,7 +65,7 @@ class GroupViewModel:ObservableObject {
             .publishDecodable(type: GroupLists.self, queue: .main)
         cancellable = publisher
             .sink(receiveValue: {(values) in
-                self.groups_name = ["Me"]
+                self.groups_name = ["Me".localized]
                 let tmp = values.value?.results ?? []
                 for group in tmp {
                     self.groups_name.append(group.name)

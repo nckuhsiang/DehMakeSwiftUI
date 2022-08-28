@@ -11,12 +11,12 @@ import Alamofire
 
 struct GroupInfoView:View{
     let group:Group
-    @State var buttonText:String
-    
+    @State var buttonText:String = ""
+    @State var action:Action
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var uvm:UserViewModel
     @EnvironmentObject var gvm:GroupViewModel
-    @State private var cancellable: AnyCancellable?
+    
     @State private var name:String = ""
     @State private var description:String = ""
     @State private var disableState:Bool = true
@@ -25,12 +25,12 @@ struct GroupInfoView:View{
         ScrollView {
             VStack(alignment: .leading, spacing: 10){
                 HStack {
-                    Text("Group Name:")
+                    Text("Group Name:".localized)
                     TextField("", text: $name)
                         .textFieldStyle(.roundedBorder)
                         .disabled(disableState)
                 }
-                Text("information")
+                Text("Information".localized)
                 TextEditor(text: $description)
                     .frame(height:400)
                     .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 0.05))
@@ -38,7 +38,7 @@ struct GroupInfoView:View{
                         UIApplication.dismissKeyboard()
                     }
                     .disabled(disableState)
-                if uvm.id == group.leaderId || buttonText == "Create"{
+                if uvm.id == group.leaderId || action == .create {
                     Button {
                         butttonClick()
                     } label: {
@@ -62,7 +62,8 @@ struct GroupInfoView:View{
         .onAppear {
             name = group.name
             description = group.info
-            if buttonText == "Create"{
+            setBtnText()
+            if action == .create {
                 disableState = false
             }
         }
@@ -71,22 +72,32 @@ struct GroupInfoView:View{
 }
 extension GroupInfoView {
     func butttonClick(){
-        switch buttonText {
-        case "Create":
+        switch action {
+        case .create:
             gvm.createGroup(account: uvm.account, name: name, description: description, language: language, coi: uvm.coi)
-        case "Edit":
-            buttonText = "Save"
+        case .edit:
+            buttonText = "Save".localized
+            action = .save
             disableState = false
-        default:
+        case .save:
             gvm.updateGroup(name: name, id: group.id, description: description)
         }
     }
-    
+    func setBtnText() {
+        switch action {
+        case .create:
+            buttonText = "Create".localized
+        case .edit:
+            buttonText = "Edit".localized
+        case .save:
+            buttonText = "Save".localized
+        }
+    }
     
 }
 
 struct GroupInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        GroupInfoView(group: Group(id: 1, name: "Mmnetlab", leaderId: 1, info: "test"), buttonText: "Create").environmentObject(UserViewModel())
+        GroupInfoView(group: Group(id: 1, name: "Mmnetlab", leaderId: 1, info: "test"), action: .create).environmentObject(UserViewModel())
     }
 }

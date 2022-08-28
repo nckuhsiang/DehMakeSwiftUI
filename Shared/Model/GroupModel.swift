@@ -16,12 +16,7 @@ struct Group:Identifiable,Decodable {
         case leaderId = "learderId"
         case info = "group_info"
     }
-    init(id:Int,name:String, leaderId:Int, info:String) {
-        self.id = id
-        self.name = name
-        self.leaderId = leaderId
-        self.info = info
-    }
+    
 }
 struct GroupMember:Decodable {
     let result:[Member]

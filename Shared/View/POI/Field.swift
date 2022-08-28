@@ -27,7 +27,26 @@ struct PoiTextRow:View {
         .padding()
     }
 }
-
+struct PoiReadOnlyRow:View {
+    let title:String
+    let instruction:String
+    @Binding var text:String
+    var body: some View {
+        HStack(alignment: .top, spacing: 30) {
+            Text(title + ":")
+                .frame(width: 150,alignment: .leading)
+                .font(.system(size: 25))
+            
+            Text(text == "" ? instruction:text)
+                .frame(width: 220,height: 30,alignment: .leading)
+                .cornerRadius(25)
+                .border(.gray, width: 1)
+                .font(.system(size: 16))
+                
+        }
+        .padding()
+    }
+}
 struct PoiPickerRow:View {
     
     let title:String
@@ -66,11 +85,12 @@ struct PoiEditorRow:View {
                 .frame(width: 150,alignment: .leading)
                 .font(.system(size: 25))
             TextEditor(text: $text)
-               
                 .frame(width: 220, height: 150)
                 .cornerRadius(25)
                 .border(.gray, width: 1)
-                
+                .onTapGesture {
+                    UIApplication.dismissKeyboard()
+                }
             
         }
         .padding()

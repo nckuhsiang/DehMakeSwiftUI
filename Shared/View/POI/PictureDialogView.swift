@@ -7,40 +7,55 @@
 import SwiftUI
 
 struct PictureDialogView: View {
-    @StateObject var imagePoi:ImageManager
+    let folderPath:String
+    @StateObject var imgManager:ImageManager
     var body: some View {
         VStack {
             Spacer()
-            Text("影像來源")
-            Text("請選擇選取方式")
+            Text("image source")
+            Text("choose your image source".localized)
             Spacer()
             Button(action: {
-                imagePoi.sourceType = .camera
-                imagePoi.showImagePicker = true
+                if imgManager.check(){
+                    imgManager.sourceType = .camera
+                    imgManager.showImagePicker = true
+                }
+                else {
+                    imgManager.beyondLimitAlert = true
+                }
             }, label: {
-                Text("相機")
+                Text("camera".localized)
             })
                 .frame(width: UIScreen.main.bounds.width/2, height: 30)
                 .border(Color.gray, width: 1)
             Button(action: {
-                imagePoi.sourceType = .photoLibrary
-                imagePoi.showImagePicker = true
+                if imgManager.check(){
+                    imgManager.sourceType = .photoLibrary
+                    imgManager.showImagePicker = true
+                }
+                else{
+                    imgManager.beyondLimitAlert = true
+                }
+                
             }, label: {
-                Text("相片庫")
+                Text("Image Library".localized)
             })
                 .frame(width: UIScreen.main.bounds.width/2, height: 30)
                 .border(Color.gray, width: 1)
             Button(action: {
-                imagePoi.showPictureDialog = false
+                imgManager.showPictureDialog = false
             }, label: {
-                Text("確定")
+                Text("confirm".localized)
             })
                 .frame(width: UIScreen.main.bounds.width/2, height: 30)
                 .border(Color.gray, width: 1)
         }
-        .sheet(isPresented: $imagePoi.showImagePicker) {
-            ImagePicker(selectedImage: self.$imagePoi.image,sourceType: imagePoi.sourceType)
+        .sheet(isPresented: $imgManager.showImagePicker) {
+            ImagePicker(folderPath: folderPath,imgManager: imgManager,sourceType: imgManager.sourceType)
         }
+        .alert("at most 5 picture".localized, isPresented: $imgManager.beyondLimitAlert, actions: {
+            Text("OK".localized)
+        })
         .frame(minWidth: nil, idealWidth: nil, maxWidth: UIScreen.main.bounds.width/2, minHeight: nil, idealHeight: nil, maxHeight: 150, alignment: .center)
         .padding()
         .border(Color.black,width: 1)

@@ -29,14 +29,3 @@ struct UserModel: Decodable {
     }
 }
 
-//    init(account:String,password:String,name:String,id:Int,nickname:String,email:String,birthday:String,role:String,message:String) {
-//        self.account = account
-//        self.password = password
-//        self.name = name
-//        self.id = id
-//        self.nickname = nickname
-//        self.email = email
-//        self.birthday = birthday
-//        self.role = role
-//        self.message = message
-//    }

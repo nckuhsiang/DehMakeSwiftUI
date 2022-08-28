@@ -59,19 +59,19 @@ struct GroupItem:View {
         } label: {
             Text(name)
         }
-        .alert("Would you want to join \(name)", isPresented: $alertState) {
+        .alert("Would you want to join".localized + "\(name)", isPresented: $alertState) {
             Button {
                 gvm.joinGroup(account: uvm.account, name: name)
             } label: {
-                Text("Yes")
+                Text("Yes".localized)
             }
             Button {
             } label: {
-                Text("No")
+                Text("No".localized)
             }
         }
         .alert(gvm.JoinResponseText, isPresented: $gvm.showJoinResponse) {
-            Text("OK")
+            Text("OK".localized)
         }
     }
     

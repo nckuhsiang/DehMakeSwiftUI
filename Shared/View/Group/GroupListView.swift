@@ -9,6 +9,12 @@ import SwiftUI
 import Combine
 import Alamofire
 
+enum Action {
+    case create
+    case edit
+    case save
+}
+
 struct GroupListView: View {
     @EnvironmentObject var uvm:UserViewModel
     @EnvironmentObject var gvm:GroupViewModel
@@ -20,8 +26,8 @@ struct GroupListView: View {
                     }
             }
             .listStyle(.plain)
-            NavigationLink(destination: GroupInfoView(group: Group(id: -1, name: "", leaderId: -1, info: ""), buttonText:"Create")){
-                Text("Create Group")
+            NavigationLink(destination: GroupInfoView(group: Group(id: -1, name: "", leaderId: -1, info: ""), action: Action.create)){
+                Text("Create Group".localized)
                     .frame(maxWidth: .infinity,maxHeight: 20)
                     .foregroundColor(.white)
                     .font(.system(size: 30))

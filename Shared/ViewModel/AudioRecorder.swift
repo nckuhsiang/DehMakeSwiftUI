@@ -19,24 +19,20 @@ enum AudioState {
 }
 
 class AudioRecorder: ObservableObject {
-    let objectWillChange = PassthroughSubject<AudioRecorder, Never>()
+//    let objectWillChange = PassthroughSubject<AudioRecorder, Never>()
     var audioRecorder: AVAudioRecorder!
     var player: AVAudioPlayer!
-    
     @Published var audioText:String = "開始錄音"
     @Published var color:Color = .blue
     @Published var showAudio:Bool = false
     @Published var audioPath:String = ""
+    @Published var recording:AudioState = .record
     
-    @Published var recording:AudioState = .record {
-        didSet {
-            objectWillChange.send(self)
-        }
-    }
-    func execRecord(){
+    
+    func execRecord(folderPath:String){
         switch recording {
         case .record:
-            startRecord()
+            startRecord(folderPath: folderPath)
         case .stop_record:
             stopRecord()
         case .play:
@@ -45,7 +41,7 @@ class AudioRecorder: ObservableObject {
             stopPlayRecord()
         }
     }
-    func startRecord() {
+    func startRecord(folderPath:String) {
         let recordingSession = AVAudioSession.sharedInstance()
         // 設置 session 類型
         do {
@@ -63,7 +59,6 @@ class AudioRecorder: ObservableObject {
             AVNumberOfChannelsKey: NSNumber(value: 1),                              // 通道数
             AVEncoderAudioQualityKey: NSNumber(value: AVAudioQuality.min.rawValue), // 錄音質量
         ];
-        let folderPath = createFolder()
         let timestamp = Int(NSDate().timeIntervalSince1970)
         audioPath = folderPath + "/Record_" + timestamp.description + ".aac"
         do {

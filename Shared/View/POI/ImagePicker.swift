@@ -8,12 +8,15 @@
 
 import UIKit
 import SwiftUI
+import AVFoundation
 
 struct ImagePicker: UIViewControllerRepresentable {
     
-    @Binding var selectedImage: UIImage?
+    let folderPath:String
+    @StateObject var imgManager:ImageManager
     @Environment(\.presentationMode) var isPresented
     var sourceType: UIImagePickerController.SourceType
+    
     func makeUIViewController(context: Context) -> UIImagePickerController {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = self.sourceType
@@ -39,8 +42,19 @@ class CCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContr
 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let selectedImage = info[.originalImage] as? UIImage else { return }
-        self.picker.selectedImage = selectedImage
+        
+//        let imageToSave : NSData = UIImageJPEGRepresentation(selectedImage, 0.8)! as NSData
+        let imageToSave : NSData = selectedImage.jpegData(compressionQuality: 0.8)! as NSData
+        let timestamp = Int(NSDate().timeIntervalSince1970)
+        let imagePath = self.picker.folderPath + "/IMG_" + timestamp.description + ".jpg"
+        print("Image Path : " + imagePath)
+        imageToSave.write(toFile: imagePath, atomically: true)
+        self.picker.imgManager.images.append(ImageItem(image: selectedImage))
+        self.picker.imgManager.imageUrls.append(imagePath)
         self.picker.isPresented.wrappedValue.dismiss()
+        
+        
+        
     }
 
 }

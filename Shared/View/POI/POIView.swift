@@ -9,68 +9,172 @@ import SwiftUI
 import Alamofire
 import Combine
 import AVFoundation
+import CryptoKit
+
 
 let formats = ["All".localized,"Historical Site, Buildings".localized,"Ruins".localized,"Cultural Landscape".localized,"Natural Landscape".localized,"Traditional Art".localized,"Cultural Artifacts".localized,"Antique".localized,"Necessities of Life".localized,"Others".localized]
 
 struct POIView: View {
     
     let type:mediaType
-    @State var folderPath:String = ""
+    @State var folderPath = ""
     @EnvironmentObject var uvm:UserViewModel
     @EnvironmentObject var gvm:GroupViewModel
-    @StateObject var pvm:PoiViewModel = PoiViewModel()
-    @StateObject var audioRecorder: AudioRecorder = AudioRecorder()
-    @StateObject var image:ImageManager = ImageManager()
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.presentationMode) var isPresented
+    @State var title:String = ""
+    @State var format:String = "All"
+    @State var keyword:String = ""
+    @State var group:String = "Me"
+    @State var description:String = ""
+    @State var longitude:String = ""
+    @State var latitude:String = ""
+    
     @StateObject var location:LocationManager = LocationManager()
+    @StateObject var speakRecorder: AudioRecorder = AudioRecorder()
+    @StateObject var audioRecorder: AudioRecorder = AudioRecorder()
+    @StateObject var imgManager:ImageManager = ImageManager()
+    @StateObject var videoManager:VideoManager = VideoManager()
     
     var body: some View {
         ZStack {
             VStack {
                 ScrollView {
                     VStack(alignment: .leading) {
-                        PoiTextRow(title: "name", instruction: "請輸入名稱",text: $pvm.name)
-                        PoiTextRow(title: "longitude", instruction: "點擊定位取的所在位置",text: $location.longitude)
-                        PoiTextRow(title: "latitude", instruction: "點擊定位取的所在位置",text: $location.latitude)
-                        PoiTextRow(title: "keyword", instruction: "請輸入景點關鍵字",text: $pvm.keyword)
-                        PoiEditorRow(title: "description",text: $pvm.description)
-                        PoiPickerRow(title: "format",data: formats, selected:$pvm.format)
-                        PoiPickerRow(title: "group",data: gvm.groups_name, selected:$pvm.group)
-                        if audioRecorder.showAudio == true {
+                        PoiTextRow(title: "title".localized, instruction: "input your title".localized,text: $title)
+                        PoiTextRow(title: "keyword".localized, instruction: "input the poi keyword".localized,text: $keyword)
+                        PoiReadOnlyRow(title: "longitude".localized, instruction: "click button to get your location".localized,text: $location.longitude)
+                        PoiReadOnlyRow(title: "latitude".localized, instruction: "click button to get your location".localized,text: $location.latitude)
+                        PoiEditorRow(title: "description".localized,text: $description)
+                        PoiPickerRow(title: "format".localized,data: formats, selected:$format)
+                        PoiPickerRow(title: "group".localized,data: gvm.groups_name, selected:$group)
+                        if speakRecorder.showAudio == true {
                             HStack {
                                 Button (action: {
-                                    audioRecorder.execRecord()
+                                    speakRecorder.execRecord(folderPath: folderPath)
                                 }, label: {
-                                    Text(audioRecorder.audioText)
+                                    Text(speakRecorder.audioText)
                                         .frame(width: UIScreen.main.bounds.width-30,height: 30)
-                                        .background(audioRecorder.color)
+                                        .background(speakRecorder.color)
                                         .foregroundColor(.white)
-                                    
                                 })
                             }
                             .padding()
                         }
                         
-                        Text("picture preview")
-                            .font(.system(size: 25))
-                            .padding()
-                        Image(uiImage: image.image ?? UIImage())
-                            .resizable()
-                            .frame(width: UIScreen.main.bounds.width, height: 500)
-                        
-                        //                        Spacer()
+                        switch type {
+                        case .image:
+                            Text("picture preview".localized)
+                                .font(.system(size: 25))
+                                .padding()
+                            ForEach(imgManager.images) { img in
+                                Image(uiImage: img.image)
+                                    .resizable()
+                                    .scaledToFit()
+                            }
+                        case .audio:
+                            if audioRecorder.showAudio == true {
+                                HStack {
+                                    Button (action: {
+                                        audioRecorder.execRecord(folderPath: folderPath)
+                                    }, label: {
+                                        Text(audioRecorder.audioText)
+                                            .frame(width: UIScreen.main.bounds.width-30,height: 30)
+                                            .background(audioRecorder.color)
+                                            .foregroundColor(.white)
+                                    })
+                                }
+                                .padding()
+                            }
+                        case .video:
+                            if videoManager.showVideoButton == true {
+                                HStack {
+                                    Button (action: {
+                                        if videoManager.videoPath == "" {
+                                            videoManager.showVideoPicker = true
+                                        }
+                                        else {
+                                            videoManager.playVideo = true
+                                        }
+                                    }, label: {
+                                        Text(videoManager.videoText)
+                                            .frame(width: UIScreen.main.bounds.width-30,height: 30)
+                                            .background(.blue)
+                                            .foregroundColor(.white)
+                                    })
+                                }
+                                .padding()
+                                .sheet(isPresented: $videoManager.playVideo, content: {
+                                    AVPlayerView(videoURL: videoManager.videoPath)
+                                })
+                                
+                            }
+                        }
                     }
                 }
                 Spacer()
-                TabButton(type:type,location: location, image: image, audioRecorder: audioRecorder)
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        location.getLocation()
+                    }, label: {
+                        Image("placeholder")
+                            .alert("complete to get your location".localized, isPresented: $location.showCompleteAlert, actions: {
+                                Text("OK".localized)
+                            })
+                    })
+                    Spacer()
+                    switch type {
+                    case .image:
+                        Button(action: {
+                            imgManager.showPictureDialog = true
+                        }, label: {
+                            Image("picture")
+                        })
+                    case .audio:
+                        Button(action: {
+                            audioRecorder.showAudio = true
+                        }, label: {
+                            Image("speaker")
+                        })
+                    case .video:
+                        Button(action: {
+                            videoManager.showVideoButton = true
+                        }, label: {
+                            Image("video-player")
+                        })
+                    }
+                    
+                    
+                    Spacer()
+                    Button(action: {
+                        speakRecorder.showAudio = true
+                    }, label: {
+                        Image("microphone")
+                    })
+                    
+                    Spacer()
+                    Button(action: {
+                        addPoi()
+                    }, label: {
+                        Image("download")
+                    })
+                    
+                    Spacer()
+                }
+                .padding(.top)
+                .background(.orange)
                 
             }
-            if image.showPictureDialog {
-                PictureDialogView(imagePoi: image)
+            if imgManager.showPictureDialog {
+                PictureDialogView(folderPath: folderPath,imgManager: imgManager)
             }
         }
-        .alert("complete to get your location ", isPresented: $pvm.showLocationAlert) {
-            Text("OK")
+        
+        .sheet(isPresented: $videoManager.showVideoPicker) {
+            VideoPicker(folderPath:folderPath, videoManager: videoManager)
         }
+        
         .onAppear {
             folderPath = createFolder()
             gvm.getGroupNameList(id: uvm.id, coi: uvm.coi, language: language)
@@ -78,7 +182,6 @@ struct POIView: View {
         
     }
 }
-
 extension POIView {
     func createFolder() -> String {
         print("DEH Folder Creating")
@@ -87,7 +190,7 @@ extension POIView {
         
         let documentsDirectory: AnyObject = paths[0] as AnyObject
         let dataPaths = (documentsDirectory as! NSString).appendingPathComponent("DEH-Image")
-        
+        var folderPath = ""
         if fileManager1.fileExists(atPath: dataPaths){
             print("Folder already exist!")
             folderPath = dataPaths
@@ -104,36 +207,73 @@ extension POIView {
         }
         return folderPath
     }
+    private func check() -> Bool {
+        print(title,description,keyword,location.address,imgManager.imageUrls.count)
+        if title == "" || description == "" || keyword == "" || location.address == ""  {
+            return false
+        }
+        switch type {
+        case .image:
+            if imgManager.imageUrls.count == 0 {
+                return false
+            }
+        case .audio:
+            if audioRecorder.audioPath == "" {
+                return false
+            }
+        case .video:
+            if(videoManager.videoPath == ""){
+                return false
+            }
+        }
+        return true
+    }
+    private func addPoi() {
+        if check() {
+            let poi = Poi(context: viewContext)
+            poi.title = title
+            poi.keyword = keyword
+            poi.longitude = location.longitude
+            poi.latitude = location.latitude
+            poi.address = location.address
+            poi.summary = description
+            poi.format = format
+            poi.identifier = uvm.role
+            poi.language = language
+            poi.coi = uvm.coi
+            poi.group = (group == "Me".localized ? "" : group)
+            
+            //意義不明的欄位
+            poi.id = 0
+            poi.height = "0"
+            poi.source = ""
+            poi.rights = ""
+            poi.open = 1
+            poi.subject = "Activation and Reconstructed"
+            poi.type = "Natural Landscape"
+            poi.year = 2022
+            poi.period = ""
+            switch type {
+            case .image:
+                poi.media_type = "Image"
+            case .audio:
+                poi.media_type = "Audio"
+            case .video:
+                poi.media_type = "Vedio"
+            }
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+            self.isPresented.wrappedValue.dismiss()
+        }
+    }
+    
 }
-//    func getGroupList(){
-//        test = ["Me"]
-//        let url = GroupGetUserGroupListUrl
-//        let parameters = [
-//            "user_id": "\(setting.id)",
-//            "coi_name": setting.coi,
-//            "language": language,
-//        ]
-//        AF.request(url,method: .post,parameters: parameters).responseDecodable(of: GroupLists.self) { response in
-//            print(tmp)
-//            for group in tmp {
-//                test.append(group.name)
-//            }
-//        }
-//        let publisher = AF.request(url, method: .post, parameters: parameters)
-//            .publishDecodable(type: GroupLists.self, queue: .main)
-//        self.cancellable = publisher
-//            .sink(receiveValue: {(values) in
-//                let tmp = values.value?.results ?? []
-//                tmp.forEach({ group in
-//                    test.append(group.name)
-//                })
-//            })
-//        print(test)
-//    } 
-//}
-
-
-
 struct PicturePOI_Previews: PreviewProvider {
     static var previews: some View {
         POIView(type: mediaType.image).environmentObject(UserViewModel())

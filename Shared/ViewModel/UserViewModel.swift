@@ -10,11 +10,6 @@ import Alamofire
 import Combine
 
 class UserViewModel:ObservableObject {
-//    @Published var user:UserModel = UserDefaults.standard.object(forKey: "user") as? UserModel ?? UserModel() {
-//        didSet {
-//            UserDefaults.standard.set(user,forKey: "user")
-//        }
-//    }
     @Published var account:String = UserDefaults.standard.string(forKey: "account") ?? "" {
         didSet {
             UserDefaults.standard.set(account, forKey: "account")

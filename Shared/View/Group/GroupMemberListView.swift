@@ -16,8 +16,8 @@ struct GroupMemberListView:View {
     var body: some View {
         VStack {
             HStack {
-                Text("invite:")
-                TextField("User name", text: $name)
+                Text("invite:".localized)
+                TextField("User name".localized, text: $name)
                     .textFieldStyle(.roundedBorder)
                 Button {
                     gvm.inviteMember(account: uvm.account, name: name, group_id: group.id, coi: uvm.coi)
@@ -27,7 +27,7 @@ struct GroupMemberListView:View {
                 }
             }
             .padding(.bottom)
-            Text("Group Member")
+            Text("Group Member".localized)
                 .font(.system(size: 20, weight: .bold, design: .default))
             List {
                 ForEach(gvm.members){ member in
@@ -41,7 +41,7 @@ struct GroupMemberListView:View {
             Spacer()
         }
         .alert(gvm.inviteResponseText, isPresented: $gvm.showInviteResponse) {
-            Text("OK")
+            Text("OK".localized)
         }
         .padding()
         .onAppear {

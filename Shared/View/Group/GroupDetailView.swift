@@ -13,15 +13,15 @@ struct GroupDetailView: View {
     let group:Group
     var body: some View {
         TabView {
-            GroupInfoView(group:group, buttonText:"Edit")
+            GroupInfoView(group:group, action: Action.edit)
                 .tabItem {
                     Image("file")
-                    Text("Information")
+                    Text("Information".localized)
                 }
             GroupMemberListView(group:group)
                 .tabItem {
                     Image("groupmember")
-                    Text("Member")
+                    Text("Member".localized)
                 }
         }
         .toolbar {

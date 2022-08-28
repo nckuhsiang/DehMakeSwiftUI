@@ -6,6 +6,9 @@
   
 */
 "OK" = "わかった";
+"Yes" = "是";
+"No" = "否";
+"confirm" = "確定";
 //Account
 "more..." = "もっと..";
 "account" = "アカウント";
@@ -18,3 +21,40 @@
 "login success" = "ログイン成功";
 "choose COI" = "COIを選択";
 "COI List" = "COIリスト";
+
+//Group
+"Create" = "創建";
+"Edit" = "編輯";
+"Save" = "更新";
+"Create Group" = "創建群組";
+"Group List" = "群組清單";
+"Would you want to join" = "你想要加入";
+"Message List" = "訊息清單";
+"invite you to join" = "邀請你加入";
+"Information" = "資訊";
+"Member" = "組員";
+"Group Info" = "群組資訊";
+"Group Name:" = "群組名稱：";
+"Group Member" = "群組成員";
+"User name" = "使用者名稱";
+"invite:" = "邀請";
+"Group Join" = "加入群組";
+
+//POI
+"name" = "名稱";
+"longitude" = "經度";
+"latitude" = "緯度";
+"keyword" = "關鍵字";
+"description" = "景點描述";
+"format" = "範疇";
+"group" = "群組";
+"picture preview" = "圖片預覽";
+"complete to get your location" = "完成定位";
+"input your name" = "請輸入名稱";
+"click button to get your location" = "點擊定位取的所在位置";
+"input the poi keyword" = "請輸入景點關鍵字";
+"image source" = "圖片來源";
+"choose your image source" = "選擇圖片來源";
+"camera" = "相機";
+"Image Library" = "相片庫";
+"at most 5 picture" = "至多5張圖片";
