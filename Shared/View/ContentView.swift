@@ -36,64 +36,42 @@ struct ContentView: View {
     }
     @EnvironmentObject var uvm:UserViewModel
     @EnvironmentObject var gvm:GroupViewModel
-    @Environment(\.managedObjectContext) private var viewContext
-    
+    @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Poi.id, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Poi>
+        animation: .default) var pois: FetchedResults<Poi>
+    @State private var showLogOutAlert:Bool = false
+    @State private var showAccountView:Bool = false
     
-    @State private var selection:Int? = nil
-    @State private var picturePOI:Bool = false
-    @State private var audioPOI:Bool = false
-    @State private var videoPOI:Bool = false
-    @State private var alertState:Bool = false
-    @State private var nextView:Bool = false
-    @State private var showActionSheet = false
+    
+    
     var body: some View {
         NavigationView {
             VStack {
-                List(selection: $selection) {
-                    ForEach(items) { item in
-                        Button(action: {
-                            showActionSheet = true
-                        }, label: {
-                            listItem(picture: "picture", title: item.title ?? "", decription: item.summary ?? "")
-
-                                .confirmationDialog("What would you want to do?".localized , isPresented: $showActionSheet, titleVisibility: .visible) {
-                                    Button {
-                                       
-                                    } label: {
-                                        Text("revise".localized)
-                                            .foregroundColor(.blue)
-                                    }
-                                    Button {
-                                        
-                                    } label: {
-                                        Text("upload".localized)
-                                            .foregroundColor(.blue)
-                                    }
-                                }
-                        })
+                List {
+                    ForEach(pois) { poi in
+                        PoiItem(poi: poi, folderPath: $uvm.folderPath)
                     }
                     .onDelete(perform: deletePoi)
                 }
+                .padding(.top)
                 .listStyle(.plain)
                 HStack {
                     Spacer()
-                    NavigationLink(destination: POIView(type: mediaType.image), label: {
+                    NavigationLink(destination: PoiView(type: .image), label: {
                         Image("picture")
                     })
                     Spacer()
-                    NavigationLink(destination: POIView(type: mediaType.audio), label: {
+                    NavigationLink(destination: PoiView(type: .audio), label: {
                         Image("speaker")
                     })
                     Spacer()
-                    NavigationLink(destination: POIView(type: mediaType.video), label: {
+                    NavigationLink(destination: PoiView(type: .video), label: {
                         Image("video-player")
                     })
                     Spacer()
                 }
+                
                 .padding(.top)
                 .background(.orange)
                 .toolbar {
@@ -109,26 +87,26 @@ struct ContentView: View {
                             .foregroundColor(.white)
                     }
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        NavigationLink(destination: AccountView(),isActive: $nextView){
+                        NavigationLink(destination: AccountView(),isActive: $showAccountView){
                             Image(systemName: "person.crop.circle")
                                 .foregroundColor(.white)
                                 .onTapGesture {
-                                    if uvm.id != -1 {
-                                        alertState = true
+                                    if uvm.loginState {
+                                        showLogOutAlert = true
                                     }
                                     else {
-                                        nextView = true
+                                        showAccountView = true
                                     }
                                 }
-                                .alert("Would you want to logout?", isPresented: $alertState) {
+                                .alert("Would you want to logout?", isPresented: $showLogOutAlert) {
                                     Button {
                                         uvm.logout()
-                                        nextView = true
+                                        showAccountView = true
                                     } label: {
                                         Text("Yes")
                                     }
                                     Button {
-                                        alertState = false
+                                        showLogOutAlert = false
                                     } label: {
                                         Text("No")
                                     }
@@ -140,30 +118,27 @@ struct ContentView: View {
             }
         }
         
+        .onAppear() {
+            gvm.getGroupNameList(id: uvm.id, coi: uvm.coi, language: language)
+            uvm.createFolder()
+        }
     }
 }
-
-
 extension ContentView {
     func deletePoi(offsets: IndexSet) {
         withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-            
+            offsets.map { pois[$0] }.forEach(viewContext.delete)
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                
             }
+            
         }
     }
-    func uploadPoi(offsets: IndexSet) {
-        
-    }
 }
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

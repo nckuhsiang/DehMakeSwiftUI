@@ -1,31 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="20086" systemVersion="21G83" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Media" representedClassName="Media" syncable="YES" codeGenerationType="class">
+        <attribute name="format" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="path" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+        <relationship name="media_to_poi" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Poi" inverseName="poi_to_media" inverseEntity="Poi"/>
+    </entity>
     <entity name="Poi" representedClassName="Poi" syncable="YES" codeGenerationType="class">
-        <attribute name="address" optional="YES" attributeType="String"/>
-        <attribute name="coi" optional="YES" attributeType="String"/>
-        <attribute name="format" optional="YES" attributeType="String"/>
-        <attribute name="group" optional="YES" attributeType="String"/>
-        <attribute name="height" optional="YES" attributeType="String"/>
-        <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="identifier" optional="YES" attributeType="String"/>
-        <attribute name="keyword" optional="YES" attributeType="String"/>
-        <attribute name="language" optional="YES" attributeType="String"/>
-        <attribute name="latitude" optional="YES" attributeType="String"/>
-        <attribute name="longitude" optional="YES" attributeType="String"/>
-        <attribute name="media_set" optional="YES" attributeType="String"/>
-        <attribute name="media_type" optional="YES" attributeType="String"/>
-        <attribute name="open" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="period" optional="YES" attributeType="String"/>
-        <attribute name="rights" optional="YES" attributeType="String"/>
-        <attribute name="scope" optional="YES" attributeType="String"/>
-        <attribute name="source" optional="YES" attributeType="String"/>
-        <attribute name="subject" optional="YES" attributeType="String"/>
-        <attribute name="summary" optional="YES" attributeType="String"/>
-        <attribute name="title" optional="YES" attributeType="String"/>
-        <attribute name="type" optional="YES" attributeType="String"/>
-        <attribute name="year" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="address" attributeType="String"/>
+        <attribute name="coi" attributeType="String"/>
+        <attribute name="format" attributeType="String"/>
+        <attribute name="group" attributeType="String"/>
+        <attribute name="height" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="identifier" attributeType="String"/>
+        <attribute name="keyword" attributeType="String"/>
+        <attribute name="language" attributeType="String"/>
+        <attribute name="latitude" attributeType="String"/>
+        <attribute name="longitude" attributeType="String"/>
+        <attribute name="media_type" attributeType="String"/>
+        <attribute name="open" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="period" attributeType="String"/>
+        <attribute name="rights" attributeType="String"/>
+        <attribute name="scope" attributeType="String"/>
+        <attribute name="source" attributeType="String"/>
+        <attribute name="subject" attributeType="String"/>
+        <attribute name="summary" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <attribute name="type" attributeType="String"/>
+        <attribute name="year" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="poi_to_media" toMany="YES" deletionRule="Nullify" destinationEntity="Media" inverseName="media_to_poi" inverseEntity="Media"/>
     </entity>
     <elements>
-        <element name="Poi" positionX="-63" positionY="-18" width="128" height="374"/>
+        <element name="Media" positionX="-63" positionY="144" width="128" height="103"/>
+        <element name="Poi" positionX="-361.55078125" positionY="181.26953125" width="128" height="388"/>
     </elements>
 </model>

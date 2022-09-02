@@ -11,9 +11,8 @@ import SwiftUI
 import AVFoundation
 
 struct ImagePicker: UIViewControllerRepresentable {
-    
     let folderPath:String
-    @StateObject var imgManager:ImageManager
+    @Binding var imageUrls:[String]?
     @Environment(\.presentationMode) var isPresented
     var sourceType: UIImagePickerController.SourceType
     
@@ -46,11 +45,13 @@ class CCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContr
 //        let imageToSave : NSData = UIImageJPEGRepresentation(selectedImage, 0.8)! as NSData
         let imageToSave : NSData = selectedImage.jpegData(compressionQuality: 0.8)! as NSData
         let timestamp = Int(NSDate().timeIntervalSince1970)
-        let imagePath = self.picker.folderPath + "/IMG_" + timestamp.description + ".jpg"
+        let imagePath =  "/IMG_" + timestamp.description + ".jpg"
         print("Image Path : " + imagePath)
-        imageToSave.write(toFile: imagePath, atomically: true)
-        self.picker.imgManager.images.append(ImageItem(image: selectedImage))
-        self.picker.imgManager.imageUrls.append(imagePath)
+        imageToSave.write(toFile: self.picker.folderPath + imagePath, atomically: true)
+        if self.picker.imageUrls == nil {
+            self.picker.imageUrls = []
+        }
+        self.picker.imageUrls!.append(imagePath)
         self.picker.isPresented.wrappedValue.dismiss()
         
         

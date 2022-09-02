@@ -58,3 +58,5 @@ struct GroupMemberListView_Previews: PreviewProvider {
         GroupMemberListView(group: Group(id: 1, name: "Mmnetlab", leaderId: 1, info: "test")).environmentObject(UserViewModel())
     }
 }
+
+

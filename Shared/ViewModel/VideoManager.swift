@@ -13,7 +13,12 @@ import AVKit
 class VideoManager: ObservableObject {
     @Published var showVideoPicker:Bool = false
     @Published var showVideoButton:Bool = false
-    @Published var videoText:String = "start record movie"
-    @Published var videoPath:String = ""
+    @Published var videoText:String = "start record video".localized
+    @Published var videoPath:String?
     @Published var playVideo:Bool = false
+    
+    func initial() {
+        showVideoButton = true
+        videoText = "play video".localized
+    }
 }

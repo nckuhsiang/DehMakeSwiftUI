@@ -50,25 +50,19 @@ struct PoiReadOnlyRow:View {
 struct PoiPickerRow:View {
     
     let title:String
-    let data:[String]
+    @Binding var data:[String]
     @Binding var selected:String
-    @State var index:Int = 0
     var body: some View {
         HStack(alignment: .top, spacing: 30) {
             Text(title + ":")
                 .frame(width: 150,alignment: .leading)
                 .font(.system(size: 25))
-            Picker(selection: $index) {
-                ForEach(0 ..< data.count,id: \.self){ i in
-                    Button(action: {
-                        selected = data[i]
-                    }, label: {
-                        Text(data[i]).tag(i)
-                    })
-                    
+            Picker(selection: $selected) {
+                ForEach(data,id: \.self){
+                    Text($0)
                 }
             } label: {
-                Text("test")
+                Text("You selected: \(selected)")
             }
             
         }

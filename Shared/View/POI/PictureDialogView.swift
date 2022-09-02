@@ -16,7 +16,7 @@ struct PictureDialogView: View {
             Text("choose your image source".localized)
             Spacer()
             Button(action: {
-                if imgManager.check(){
+                if imgManager.check(imageCount: (imgManager.imageUrls != nil ? imgManager.imageUrls!.count:0)){
                     imgManager.sourceType = .camera
                     imgManager.showImagePicker = true
                 }
@@ -29,7 +29,7 @@ struct PictureDialogView: View {
                 .frame(width: UIScreen.main.bounds.width/2, height: 30)
                 .border(Color.gray, width: 1)
             Button(action: {
-                if imgManager.check(){
+                if imgManager.check(imageCount: (imgManager.imageUrls != nil ? imgManager.imageUrls!.count:0)){
                     imgManager.sourceType = .photoLibrary
                     imgManager.showImagePicker = true
                 }
@@ -51,7 +51,7 @@ struct PictureDialogView: View {
                 .border(Color.gray, width: 1)
         }
         .sheet(isPresented: $imgManager.showImagePicker) {
-            ImagePicker(folderPath: folderPath,imgManager: imgManager,sourceType: imgManager.sourceType)
+            ImagePicker(folderPath: folderPath, imageUrls: $imgManager.imageUrls, sourceType: imgManager.sourceType)
         }
         .alert("at most 5 picture".localized, isPresented: $imgManager.beyondLimitAlert, actions: {
             Text("OK".localized)

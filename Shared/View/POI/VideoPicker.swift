@@ -46,11 +46,12 @@ class VCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerContr
             }
             //store vedio into DEH-Make folder
             let timestamp = Int(NSDate().timeIntervalSince1970)
-            self.picker.videoManager.videoPath = self.picker.folderPath + "/Video_" + timestamp.description + ".mov"
+            self.picker.videoManager.videoPath = "/Video_" + timestamp.description + ".mov"
             let videoData = NSData(contentsOf: selectedVideo)
-            videoData?.write(toFile: self.picker.videoManager.videoPath, atomically: true)
+            videoData?.write(toFile: self.picker.folderPath + self.picker.videoManager.videoPath!, atomically: true)
         }
-        self.picker.videoManager.videoText = "play video"
+        self.picker.videoManager.videoText = "play video".localized
+//        print(self.picker.videoPath)
         self.picker.isPresented.wrappedValue.dismiss()
     }
 

@@ -54,7 +54,8 @@
 "User name" = "使用者名稱";
 "invite:" = "邀請";
 "Group Join" = "加入群組";
-
+"create group successed!" = "創建成功!";
+"please fill and upload all information" = "請填寫與上傳所有資料";
 //POI
 "title" = "名稱";
 "longitude" = "經度";
@@ -74,3 +75,5 @@
 "Image Library" = "相片庫";
 "at most 5 picture" = "至多5張圖片";
 "Me" = "屬於自己";
+"play video" = "播放影片";
+"start record video" = "錄製影片";

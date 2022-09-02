@@ -9,17 +9,32 @@ import Foundation
 import UIKit
 
 class ImageManager: ObservableObject,Identifiable{
-    @Published var images:[ImageItem] = []
-    @Published var imageUrls:[String] = []
+    @Published var imageUrls:[String]?
     @Published var showPictureDialog:Bool = false
     @Published var showImagePicker:Bool = false
     @Published var sourceType: UIImagePickerController.SourceType = .photoLibrary
     @Published var beyondLimitAlert:Bool = false
-    func check() -> Bool {
-        if images.count >= 5 {
+    func check(imageCount:Int) -> Bool {
+        if imageCount >= 5 {
             return false
         }
         return true
+    }
+    func loadImageFromDiskWith(fileName: String) -> UIImage? {
+
+      let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
+
+        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let paths = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
+
+        if let dirPath = paths.first {
+            let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
+            let image = UIImage(contentsOfFile: imageUrl.path)
+            return image
+
+        }
+
+        return nil
     }
 }
 
