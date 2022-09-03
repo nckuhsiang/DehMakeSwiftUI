@@ -117,13 +117,16 @@ extension PoiView {
         self.isPresented.wrappedValue.dismiss()
     }
     func updatePoi() {
-        if self.poi != nil {
-            setPoi(poi: self.poi!)
-            return
-        }
+        
         if check() {
-            let poi = Poi(context: viewContext)
-            setPoi(poi: poi)
+            if self.poi != nil {
+                setPoi(poi: self.poi!)
+            }
+            else {
+                let poi = Poi(context: viewContext)
+                setPoi(poi: poi)
+            }
+                
             
         }
         else {
@@ -167,4 +170,46 @@ extension PoiView {
         
     }
     
+    func deleteMedia(format:Int) {
+        // delete media
+        if poi != nil {
+            if let arr = poi!.poi_to_media?.allObjects {
+                let medias = arr as! [Media]
+                for media in medias {
+                    if media.format == format {
+                        viewContext.delete(media)
+                        save()
+                    }
+                }
+            }
+        }
+        if format == 1 {
+            imgManager.imageUrls = nil
+            imgManager.showPictureDialog = false
+            imgManager.beyondLimitAlert = false
+        }
+        else if format == 2 {
+            audioRecorder.audioText = "start record audio".localized
+            audioRecorder.color = .blue
+            audioRecorder.showAudio = false
+            audioRecorder.audioPath = nil
+            audioRecorder.recording = .record
+        }
+        else if format == 4 {
+            videoManager.showVideoPicker = false
+            videoManager.showVideoButton = false
+            videoManager.videoText = "start record video".localized
+            videoManager.videoPath = nil
+            videoManager.playVideo = false
+        }
+        // format == 8
+        else {
+            speakRecorder.audioText = "start record audio".localized
+            speakRecorder.color = .blue
+            speakRecorder.showAudio = false
+            speakRecorder.audioPath = nil
+            speakRecorder.recording = .record
+        }
+        
+    }
 }

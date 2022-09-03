@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Alamofire
-import Combine
 
 struct listItem: View {
     var picture:String
@@ -39,22 +38,18 @@ struct PoiItem: View {
     @State private var showReviseView = false
     @State private var showUploadSucess = false
     var body: some View {
-        NavigationLink(destination: PoiView(type: type,poi: poi), isActive: $showReviseView, label: {
-            listItem(picture: pic, title: title, decription: group)
-//                .frame(width: UIScreen.main.bounds.size.width,alignment: .leading)
-                .onTapGesture {
-                    if poi.media_type == "image" { type = .image }
-                    else if poi.media_type == "audio" {type = .audio }
-                    else { type = .video }
-                    showActionSheet.toggle()
-                    grantToken()
-                }
-                .alert("upload success", isPresented: $showUploadSucess, actions: {
-                    Text("OK".localized)
-                })
+        listItem(picture: pic, title: title, decription: group)
+            .onTapGesture {
+                if poi.media_type == "image" { type = .image }
+                else if poi.media_type == "audio" {type = .audio }
+                else { type = .video }
+                showActionSheet.toggle()
+                grantToken()
+            }
+        .alert("upload success", isPresented: $showUploadSucess, actions: {
+            Text("OK".localized)
         })
-        
-        .confirmationDialog("Would you want to do", isPresented: $showActionSheet, titleVisibility: .visible) {
+        .confirmationDialog("What would you want to do".localized, isPresented: $showActionSheet, titleVisibility: .visible) {
             Button {
                 showReviseView = true
             } label: {
