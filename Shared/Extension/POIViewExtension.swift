@@ -21,7 +21,7 @@ extension PoiView {
                 return false
             }
         case .audio:
-            if (audioRecorder.audioPath == "") {
+            if (audioRecorder.audioPath == nil) {
                 print("audio error")
                 return false
             }
