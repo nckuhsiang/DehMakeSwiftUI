@@ -42,18 +42,50 @@ struct ContentView: View {
         animation: .default) var pois: FetchedResults<Poi>
     @State private var showLogOutAlert:Bool = false
     @State private var showAccountView:Bool = false
-    
-    
-    
+    @State private var selection:UUID?
+    @State private var type:mediaType?
+    @State private var showActionSheet = false
+    @State var showUploadSucess = false
+    @State var token:String = ""
     var body: some View {
         NavigationView {
             VStack {
                 List {
                     ForEach(pois) { poi in
-                        PoiItem(poi: poi, folderPath: $uvm.folderPath)
+                        Button {
+                            if poi.media_type == "image" { type = .image }
+                            else if poi.media_type == "audio" {type = .audio }
+                            else { type = .video }
+                            showActionSheet = true
+                            grantToken()
+                            print("test")
+                        } label: {
+                            NavigationLink(tag: poi.id!, selection: $selection, destination: {
+                                PoiView(type: type ?? .image ,poi: poi)
+                            }, label: {
+                                listItem(picture: poi.media_type!, title: poi.title!, decription: poi.group!)
+                                .confirmationDialog("What would you want to do".localized, isPresented: $showActionSheet, titleVisibility: .visible) {
+                                    Button {
+                                        selection = poi.id
+                                    } label: {
+                                        Text("edit".localized)
+                                    }
+                                    Button {
+                                        uploadPoi(poi:poi)
+                                    } label: {
+                                        Text("upload".localized)
+                                    }
+                                }
+                                
+                            })
+                        }
                     }
                     .onDelete(perform: deletePoi)
                 }
+                .alert("upload success", isPresented: $showUploadSucess, actions: {
+                    Text("OK".localized)
+                })
+                
                 .padding(.top)
                 .listStyle(.plain)
                 HStack {

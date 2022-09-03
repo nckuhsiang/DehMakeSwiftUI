@@ -1,1 +1,85 @@
+/*
+  Localizable.strings
+  DehMakeSwiftUI
+
+  Created by 陳家庠 on 2022/2/5.
+  
+*/
+
+"OK" = "わかった";
+"Yes" = "はい";
+"No" = "いいえ";
+"confirm" = "確認";
+
+//format
+"All" = "全て";
+"Historical Site, Buildings" = "史跡、建物";
+"Ruins" = "遺跡";
+"Cultural Landscape" = "文化的景観";
+"Natural Landscape" = "自然の景観";
+"Traditional Art" = "伝統芸術";
+"Cultural Artifacts" = "文化財";
+"Antique" = "アンティーク";
+"Necessities of Life" = "生活必需品";
+"Others" = "その他";
+
+//Account
+"more..." = "もっと...";
+"account" = "アカウント";
+"password" = "パスワード";
+"login" = "ログインする";
+"register" = "登録";
+"Account Info" = "口座情報";
+"change COI" = "変化するCOI";
+"login fail" = "ログイン失敗";
+"login success" = "登入成功";
+"choose COI" = "請選擇組織";
+"COI List" = "COIリスト";
+
+
+//Group
+"Create" = "作成";
+"Edit" = "編集";
+"Save" = "保存";
+"Create Group" = "グループを作成";
+"Group List" = "グループ一覧";
+"Would you want to join" = "参加しますか";
+"Message List" = "メッセージ一覧";
+"invite you to join" = "参加するように招待する";
+"Information" = "情報";
+"Member" = "メンバー";
+"Group Info" = "グループ情報";
+"Group Name:" = "グループ名：";
+"Group Member" = "グループメンバー";
+"User name" = "ユーザー名";
+"invite:" = "招待：";
+"Group Join" = "グループ参加";
+"create group successed!" = "グループの作成に成功しました!";
+"please fill and upload all information" = "すべての情報を入力してアップロードしてください";
+//POI
+"title" = "題名";
+"longitude" = "経度";
+"latitude" = "緯度";
+"keyword" = "キーワード";
+"description" = "説明";
+"format" = "フォーマット";
+"group" = "グループ";
+"picture preview" = "画像プレビュー";
+"complete to get your location" = "あなたの場所を取得するために完了";
+"input your title" = "タイトルを入力してください";
+"click button to get your location" = "ボタンをクリックして現在地を取得します";
+"input the poi keyword" = "poiキーワードを入力";
+"image source" = "画像ソース";
+"choose your image source" = "画像ソースを選択してください";
+"camera" = "カメラ";
+"Image Library" = "画像ライブラリ";
+"at most 5 picture" = "せいぜい5枚";
+"Me" = "自分";
+"play video" = "動画を再生します";
+"start record video" = "ビデオの録画を開始";
+"start record audio" = "オーディオの録音を開始";
+"What would you want to do" = "あなたは何をしたいですか";
+
+"edit" = "編集";
+"upload" = "アップロード";
 

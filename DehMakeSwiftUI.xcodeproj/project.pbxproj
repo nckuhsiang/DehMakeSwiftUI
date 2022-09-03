@@ -44,6 +44,7 @@
 		E1B3EA0828C089CD00B13792 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14D03E528C0840800CDE85E /* CoreDataManager.swift */; };
 		E1C3104927B3724E001C191C /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3104827B3724E001C191C /* UIApplicationExtension.swift */; };
 		E1C3104D27B3C612001C191C /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C3104C27B3C612001C191C /* Field.swift */; };
+		E1E304AD28C34A69001E12A4 /* ContentViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E304AC28C34A69001E12A4 /* ContentViewExtension.swift */; };
 		E1E97F9728B349CD0046DF0B /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E97F9628B349CD0046DF0B /* AudioRecorder.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,7 @@
 		E1C3104827B3724E001C191C /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		E1C3104C27B3C612001C191C /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		E1D0429F27AE34CC000427B3 /* DehMakeSwiftUI--iOS--Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "DehMakeSwiftUI--iOS--Info.plist"; sourceTree = "<group>"; };
+		E1E304AC28C34A69001E12A4 /* ContentViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewExtension.swift; sourceTree = "<group>"; };
 		E1E97F9628B349CD0046DF0B /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,6 +117,7 @@
 				E159804B27A6F063004D1C69 /* StringExtension.swift */,
 				E1C3104827B3724E001C191C /* UIApplicationExtension.swift */,
 				E132C99428BD28A400E1440C /* POIViewExtension.swift */,
+				E1E304AC28C34A69001E12A4 /* ContentViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -371,6 +374,7 @@
 				E159804A27A6F042004D1C69 /* PoiView.swift in Sources */,
 				E1940AF227A6CEFE000FB2AE /* DehMakeSwiftUIApp.swift in Sources */,
 				E132A48028B8CF7000828C5E /* VideoManager.swift in Sources */,
+				E1E304AD28C34A69001E12A4 /* ContentViewExtension.swift in Sources */,
 				E12B9A9627B2E0F60093679A /* LocationManager.swift in Sources */,
 				E1B3EA0828C089CD00B13792 /* CoreDataManager.swift in Sources */,
 				E159804F27A6F094004D1C69 /* URLList.swift in Sources */,

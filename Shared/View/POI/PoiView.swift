@@ -54,19 +54,30 @@ struct PoiView: View {
                                     
                                 }, label: {
                                     Text(speakRecorder.audioText)
-                                        .frame(width: UIScreen.main.bounds.width-30,height: 30)
+                                        .frame(width: UIScreen.main.bounds.width-50,height: 30)
                                         .background(speakRecorder.color)
                                         .foregroundColor(.white)
                                 })
+                                Image(systemName: "trash")
+                                    .onTapGesture {
+                                        deleteMedia(format: 8)
+                                    }
                             }
                             .padding()
                         }
                         
                         switch type {
                         case .image:
-                            Text("picture preview".localized)
-                                .font(.system(size: 25))
-                                .padding()
+                            HStack {
+                                Text("picture preview".localized)
+                                    .font(.system(size: 25))
+                                    .padding()
+                                Image(systemName: "trash")
+                                    .onTapGesture {
+                                        deleteMedia(format: 1)
+                                    }
+                            }
+                            
                             ForEach(imgManager.imageUrls ?? [],id: \.self) { path in
                                 Image(uiImage: UIImage(contentsOfFile: uvm.folderPath+path) ?? UIImage())
                                     .resizable()
@@ -80,10 +91,14 @@ struct PoiView: View {
                                         
                                     }, label: {
                                         Text(audioRecorder.audioText)
-                                            .frame(width: UIScreen.main.bounds.width-30,height: 30)
+                                            .frame(width: UIScreen.main.bounds.width-50,height: 30)
                                             .background(audioRecorder.color)
                                             .foregroundColor(.white)
                                     })
+                                    Image(systemName: "trash")
+                                        .onTapGesture {
+                                            deleteMedia(format: 2)
+                                        }
                                 }
                                 .padding()
                             }
@@ -99,18 +114,22 @@ struct PoiView: View {
                                         }
                                     }, label: {
                                         Text(videoManager.videoText)
-                                            .frame(width: UIScreen.main.bounds.width-30,height: 30)
+                                            .frame(width: UIScreen.main.bounds.width-50,height: 30)
                                             .background(.blue)
                                             .foregroundColor(.white)
                                     })
+                                    Image(systemName: "trash")
+                                        .onTapGesture {
+                                            deleteMedia(format: 4)
+                                        }
                                 }
                                 .padding()
                                 .sheet(isPresented: $videoManager.playVideo, content: {
                                     AVPlayerView(videoURL: uvm.folderPath + videoManager.videoPath!)
                                 })
-                            
+                                
                             }
-
+                            
                         }
                     }
                 }
