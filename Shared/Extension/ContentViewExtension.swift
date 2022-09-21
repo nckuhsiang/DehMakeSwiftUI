@@ -59,7 +59,6 @@ extension ContentView {
         }, to: UploadPOIUrl,headers: headers).responseDecodable(of: Response.self) { response in
             print(response.value?.message ?? "")
             if response.value?.message == "file uploaded!" {
-                print("test")
                 showUploadSucess = true
             }
         }

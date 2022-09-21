@@ -189,7 +189,6 @@ struct PoiView: View {
                 }
                 .padding(.top)
                 .background(.orange)
-                
             }
             if imgManager.showPictureDialog {
                 PictureDialogView(folderPath: uvm.folderPath, imgManager: imgManager)

@@ -4,13 +4,13 @@
 <dict>
 	<key>CFBundleDocumentTypes</key>
 	<array>
-		<dict>
+		<!-- <dict>
 			<key>CFBundleTypeName</key>
-			<string></string>
+			<string>DEH Make II</string>
 			<key>LSHandlerRank</key>
 			<string>None</string>
 		</dict>
-		<dict/>
+		<dict/> -->
 	</array>
 	<key>NSAppTransportSecurity</key>
 	<dict>

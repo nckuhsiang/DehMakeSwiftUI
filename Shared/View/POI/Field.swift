@@ -19,6 +19,7 @@ struct PoiTextRow:View {
             
             TextField(instruction, text: $text)
                 .textFieldStyle(.roundedBorder)
+                .frame(width: UIScreen.main.bounds.width/2)
                 .onTapGesture {
                     UIApplication.dismissKeyboard()
                 }
@@ -38,9 +39,8 @@ struct PoiReadOnlyRow:View {
                 .font(.system(size: 25))
             
             Text(text == "" ? instruction:text)
-                .frame(width: 220,height: 30,alignment: .leading)
-                .cornerRadius(25)
-                .border(.gray, width: 1)
+                .frame(width: UIScreen.main.bounds.width/2,height: 30,alignment: .leading)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 0.05))
                 .font(.system(size: 16))
                 
         }
@@ -64,7 +64,7 @@ struct PoiPickerRow:View {
             } label: {
                 Text("You selected: \(selected)")
             }
-            
+            .frame(width: UIScreen.main.bounds.width/2)
         }
         .padding()
     }
@@ -79,9 +79,9 @@ struct PoiEditorRow:View {
                 .frame(width: 150,alignment: .leading)
                 .font(.system(size: 25))
             TextEditor(text: $text)
-                .frame(width: 220, height: 150)
+                .frame(width: UIScreen.main.bounds.width/2, height: 150)
                 .cornerRadius(25)
-                .border(.gray, width: 1)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(lineWidth: 0.05))
                 .onTapGesture {
                     UIApplication.dismissKeyboard()
                 }
