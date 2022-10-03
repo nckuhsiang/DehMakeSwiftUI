@@ -8,17 +8,17 @@
 import SwiftUI
 import Alamofire
 import Combine
+
 //傳遞訊息與動態刪除訊息清單的地方寫的有點醜
 struct GroupMessageView: View {
-    @State var infos:[GroupNotification.Info]
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var uvm:UserViewModel
     @EnvironmentObject var gvm:GroupViewModel
     var body: some View {
         VStack {
             List {
-                ForEach(infos) { info in
-                    MessageItem(info: info,infos: $infos)
+                ForEach(gvm.infos) { info in
+                    MessageItem(info: info)
                 }
             }
         }
@@ -34,10 +34,8 @@ struct GroupMessageView: View {
 
 struct MessageItem:View{
     var info:GroupNotification.Info
-    @Binding var infos:[GroupNotification.Info]
     @EnvironmentObject var uvm:UserViewModel
     @EnvironmentObject var gvm:GroupViewModel
-    @State private var cancellable: AnyCancellable?
     @State private var sheetState:Bool = false
     @State private var alertText:String = ""
     @State private var alertState:Bool = false
@@ -54,8 +52,8 @@ struct MessageItem:View{
         .confirmationDialog("Would you want to join".localized + " \(info.name)?", isPresented: $sheetState, titleVisibility: .visible) {
             Button {
                 gvm.responseMessage(sender: info.sender, id: info.id, action: "Agree", account: uvm.account, coi: uvm.coi)
-                if let index = infos.firstIndex(of:info) {
-                    infos.remove(at: index)
+                if let index = gvm.infos.firstIndex(of:info) {
+                    gvm.infos.remove(at: index)
                 }
             } label: {
                 Text("Yes".localized)
@@ -63,8 +61,8 @@ struct MessageItem:View{
             }
             Button(role: .destructive){
                 gvm.responseMessage(sender: info.sender, id: info.id, action: "Reject", account: uvm.account, coi: uvm.coi)
-                    if let index = infos.firstIndex(of:info) {
-                        infos.remove(at: index)
+                if let index = gvm.infos.firstIndex(of:info) {
+                    gvm.infos.remove(at: index)
                     }
                 } label: {
                     Text("No".localized)

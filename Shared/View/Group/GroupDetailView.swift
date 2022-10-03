@@ -11,8 +11,9 @@ import Alamofire
 
 struct GroupDetailView: View {
     let group:Group
+    @State private var tag = 0;
     var body: some View {
-        TabView {
+        TabView(selection: $tag){
             GroupInfoView(group:group, action: Action.edit)
                 .tabItem {
                     Image("file")

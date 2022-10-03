@@ -12,11 +12,9 @@ import CryptoKit
 struct GroupSearchView: View {
     @EnvironmentObject var uvm:UserViewModel
     @EnvironmentObject var gvm:GroupViewModel
-    @State private var cancellable: AnyCancellable?
     @State private var text:String = ""
     
     var searchResults: [PublicGroups.Name] {
-        //get
         if text.isEmpty {
             return gvm.publicGroups
         } else {
@@ -45,9 +43,6 @@ struct GroupSearchView: View {
         }
     }
 }
-extension GroupSearchView {
-   
-}
 struct GroupItem:View {
     var name:String
     @EnvironmentObject var uvm:UserViewModel
@@ -74,9 +69,6 @@ struct GroupItem:View {
             Text("OK".localized)
         }
     }
-    
-}
-extension GroupItem {
     
 }
 struct SearchGroupView_Previews: PreviewProvider {

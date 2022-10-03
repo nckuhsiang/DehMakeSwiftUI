@@ -58,7 +58,6 @@ struct ContentView: View {
                             else { type = .video }
                             showActionSheet = true
                             grantToken()
-                            print("test")
                         } label: {
                             NavigationLink(tag: poi.id!, selection: $selection, destination: {
                                 PoiView(type: type ?? .image ,poi: poi)
@@ -149,7 +148,7 @@ struct ContentView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
-        
+//        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear() {
             gvm.getGroupNameList(id: uvm.id, coi: uvm.coi, language: language)
             uvm.createFolder()

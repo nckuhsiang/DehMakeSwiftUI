@@ -15,18 +15,21 @@ struct GroupMemberListView:View {
     @State private var name:String = ""
     var body: some View {
         VStack {
-            HStack {
-                Text("invite:".localized)
-                TextField("User name".localized, text: $name)
-                    .textFieldStyle(.roundedBorder)
-                Button {
-                    gvm.inviteMember(account: uvm.account, name: name, group_id: group.id, coi: uvm.coi)
-                } label: {
-                    Image(systemName: "plus.circle")
-                        .foregroundColor(.orange)
+            if(group.leaderId == uvm.id){
+                HStack {
+                    Text("invite:".localized)
+                    TextField("User name".localized, text: $name)
+                        .textFieldStyle(.roundedBorder)
+                    Button {
+                        gvm.inviteMember(account: uvm.account, name: name, group_id: group.id, coi: uvm.coi)
+                    } label: {
+                        Image(systemName: "plus.circle")
+                            .foregroundColor(.orange)
+                    }
                 }
+                .padding(.bottom)
             }
-            .padding(.bottom)
+           
             Text("Group Member".localized)
                 .font(.system(size: 20, weight: .bold, design: .default))
             List {
@@ -48,9 +51,6 @@ struct GroupMemberListView:View {
             gvm.getGroupMember(group_id: group.id, coi: uvm.coi)
         }
     }
-}
-extension GroupMemberListView {
-    
 }
 
 struct GroupMemberListView_Previews: PreviewProvider {

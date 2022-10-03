@@ -43,13 +43,13 @@ struct GroupListView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 HStack {
-                    if gvm.displayMessageView {
-                        NavigationLink(destination: GroupMessageView(infos: gvm.infos)) {
-                            Image(systemName: "message.circle.fill")
-                        }
-                    }
                     NavigationLink(destination: GroupSearchView()) {
                         Image(systemName: "magnifyingglass.circle.fill")
+                    }
+                    if gvm.infos.count > 0 {
+                        NavigationLink(destination: GroupMessageView()) {
+                           Image(systemName: "message.circle.fill")
+                        }
                     }
                 }
                 .foregroundColor(.white)
