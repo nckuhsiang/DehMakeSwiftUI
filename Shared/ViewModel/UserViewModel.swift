@@ -41,7 +41,7 @@ class UserViewModel:ObservableObject {
         }
     }
     @Published var folderPath = ""
-    @Published var loginState:Bool = false
+//    @Published var loginState:Bool = false
     @Published var alertState:Bool = false
     @Published var alertText:String = ""
     private var cancellable: AnyCancellable?
@@ -65,7 +65,7 @@ class UserViewModel:ObservableObject {
                     self.id = values.value?.id ?? 0
                     self.name = values.value?.account ?? ""
                     self.role = values.value?.role ?? ""
-                    self.loginState = true
+//                    self.loginState = true
                     self.alertText = "login success".localized
                     print("login success, user info:",self.id,self.name)
                 }

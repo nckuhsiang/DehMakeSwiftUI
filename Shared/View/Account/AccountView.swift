@@ -40,6 +40,7 @@ struct AccountView: View {
             
             VStack {
                     Button {
+                        print("login enter")
                         uvm.login()
                     } label: {
                         Text("login".localized)

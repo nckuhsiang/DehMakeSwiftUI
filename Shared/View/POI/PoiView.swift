@@ -203,6 +203,7 @@ struct PoiView: View {
         
         .onAppear {
             initial()
+            gvm.getGroupNameList(id: uvm.id, coi: uvm.coi, language: language)
         }
         
     }

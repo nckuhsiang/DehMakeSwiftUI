@@ -122,7 +122,7 @@ struct ContentView: View {
                             Image(systemName: "person.crop.circle")
                                 .foregroundColor(.white)
                                 .onTapGesture {
-                                    if uvm.loginState {
+                                    if uvm.account != "" {
                                         showLogOutAlert = true
                                     }
                                     else {
@@ -148,9 +148,9 @@ struct ContentView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
-//        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(StackNavigationViewStyle())
         .onAppear() {
-            gvm.getGroupNameList(id: uvm.id, coi: uvm.coi, language: language)
+//            gvm.getGroupNameList(id: uvm.id, coi: uvm.coi, language: language)
             uvm.createFolder()
         }
     }

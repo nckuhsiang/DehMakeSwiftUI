@@ -54,7 +54,10 @@ struct GroupInfoView:View{
         }
         .alert(gvm.updateResponseText, isPresented: $gvm.showUpdateResponse) {
             Button {
-                presentationMode.wrappedValue.dismiss()
+                if(gvm.updateResponseText == "create group successed!".localized){
+                    presentationMode.wrappedValue.dismiss()
+                }
+                
             } label: {
                 Text("OK".localized)
             }
