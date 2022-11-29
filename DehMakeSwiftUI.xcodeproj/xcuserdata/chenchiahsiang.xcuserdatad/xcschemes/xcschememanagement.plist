@@ -7,17 +7,22 @@
 		<key>DehMakeSwiftUI (iOS).xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<key>DehMakeSwiftUI (macOS).xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>E1940AE827A6CEFE000FB2AE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E1940AEE27A6CEFE000FB2AE</key>
 		<dict>
 			<key>primary</key>
 			<true/>

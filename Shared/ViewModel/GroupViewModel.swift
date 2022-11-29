@@ -107,6 +107,7 @@ class GroupViewModel:ObservableObject {
             .publishDecodable(type: Message.self, queue: .main)
         self.cancellable = publisher
             .sink(receiveValue: { (values) in
+                
                 self.updateResponseText = values.value?.message.localized ?? ""
                 self.showUpdateResponse = true
             })
